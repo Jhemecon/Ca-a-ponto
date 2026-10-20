@@ -1,0 +1,189 @@
+{
+ "16": {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "Adaptado de `java/Aula5/Operacao.java` (método sacar completo)",
+  "ln": null,
+  "origem": "Adaptado de `java/Aula5/Operacao.java` (método sacar completo)",
+  "alvo": 2,
+  "linhas": [
+   "if (valor <= saldo) {",
+   "    saldo -= valor;",
+   "    return true;",
+   "}",
+   "return false;"
+  ]
+ },
+ "29": {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "Reescrito no tema do evento, a partir de `py/II/1° NPC/2.py`",
+  "ln": null,
+  "origem": "Reescrito no tema do evento, a partir de `py/II/1° NPC/2.py`",
+  "alvo": 1,
+  "linhas": [
+   "def entrar(coragem, medo):",
+   "    if coragem > medo:",
+   "        return \"Pode entrar!\"",
+   "    return \"Fuja daqui!\""
+  ]
+ },
+ "30": {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "Reescrito no tema do evento, a partir de `py/I/Exercicios/strings/7.py`",
+  "ln": null,
+  "origem": "Reescrito no tema do evento, a partir de `py/I/Exercicios/strings/7.py`",
+  "alvo": 3,
+  "linhas": [
+   "idade = int(input(\"Sua idade: \"))",
+   "if idade >= 18:",
+   "    print(\"Pode entrar na casa assombrada!\")",
+   "else:",
+   "    print(\"Volte com um adulto!\")"
+  ]
+ },
+ "41": {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "Adaptado de `C/Bla/Adivinhar2.c` (agora com o laço completo)",
+  "ln": null,
+  "origem": "Adaptado de `C/Bla/Adivinhar2.c` (agora com o laço completo)",
+  "alvo": 8,
+  "linhas": [
+   "int t2 = 3, chute, segredo = 7;",
+   "while (t2 > 0) {",
+   "    scanf(\"%d\", &chute);",
+   "    if (chute == segredo) {",
+   "        printf(\"Acertou!\");",
+   "        break;",
+   "    }",
+   "    t2--;",
+   "    printf(\"Errou! Faltam %d tentativas!\\n\", t2);",
+   "}"
+  ]
+ },
+ "51": {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "Trecho criado no estilo das aulas (Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "origem": "Trecho criado no estilo das aulas (Aula3, Aula4 e Aula5)",
+  "alvo": 4,
+  "linhas": [
+   "public static int contarFantasmas(String[] sala) {",
+   "    int total = 0;",
+   "    for (String ser : sala) {",
+   "        if (ser.equals(\"fantasma\")) {",
+   "            total++;",
+   "        }",
+   "    }",
+   "    return total;",
+   "}"
+  ]
+ },
+ "52": {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "Trecho criado no estilo das aulas (Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "origem": "Trecho criado no estilo das aulas (Aula3, Aula4 e Aula5)",
+  "alvo": 4,
+  "linhas": [
+   "int i = 10;",
+   "System.out.println(\"Contagem regressiva!\");",
+   "do {",
+   "    if (i % 2 == 0) {",
+   "        System.out.println(i + \"...\");",
+   "    }",
+   "    i--;",
+   "} while (i > 0);",
+   "System.out.println(\"BUUU!\");"
+  ]
+ },
+ "63": {
+  "lang": "c",
+  "fase": "dificil",
+  "arquivo": "Adaptado de `C/Técnicas de Programação/Estrutura de dados/Exercicios 2/tres.c` (código reorganizado)",
+  "ln": null,
+  "origem": "Adaptado de `C/Técnicas de Programação/Estrutura de dados/Exercicios 2/tres.c` (código reorganizado)",
+  "alvo": 6,
+  "linhas": [
+   "int vetor[10], soma = 0, negativos = 0;",
+   "for (int i = 0; i < 10; i++) {",
+   "    printf(\"Digite o numero %d: \", i + 1);",
+   "    scanf(\"%d\", &vetor[i]);",
+   "    soma += vetor[i];",
+   "    if (vetor[i] < 0) {",
+   "        negativos++;",
+   "    }",
+   "}",
+   "printf(\"Soma: %d\\n\", soma);",
+   "printf(\"Negativos: %d\\n\", negativos);"
+  ]
+ },
+ "67": {
+  "lang": "c",
+  "fase": "dificil",
+  "arquivo": "Adaptado de `C/Bla/Somatório2.c` (formatação arrumada e média no final)",
+  "ln": null,
+  "origem": "Adaptado de `C/Bla/Somatório2.c` (formatação arrumada e média no final)",
+  "alvo": 3,
+  "linhas": [
+   "int main() {",
+   "    int a, i, s = 0;",
+   "    for (i = 1; i <= 10; i++) {",
+   "        printf(\"Digite um número: \");",
+   "        scanf(\"%d\", &a);",
+   "        s = s + a;",
+   "    }",
+   "    printf(\"Somatório: %d\\n\", s);",
+   "    printf(\"Média: %.1f\\n\", s / 10.0);",
+   "    return 0;",
+   "}"
+  ]
+ },
+ "73": {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "Adaptado de `java/Aula3/While.java` (agora com o import)",
+  "ln": null,
+  "origem": "Adaptado de `java/Aula3/While.java` (agora com o import)",
+  "alvo": 3,
+  "linhas": [
+   "import javax.swing.JOptionPane;",
+   "public class While {",
+   "    public static void main(String[] args) {",
+   "        int i = 1;",
+   "        while (i <= 15) {",
+   "            if (i % 2 == 0) {",
+   "                JOptionPane.showMessageDialog(null, i);",
+   "            }",
+   "            i++;",
+   "        }",
+   "    }",
+   "}"
+  ]
+ },
+ "81": {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "Trecho criado no estilo das aulas (Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "origem": "Trecho criado no estilo das aulas (Aula3, Aula4 e Aula5)",
+  "alvo": 6,
+  "linhas": [
+   "int soma = 0;",
+   "int i = 1;",
+   "while (i < 20) {",
+   "    if (i % 3 == 0) {",
+   "        soma += i;",
+   "    } else if (i % 5 == 0) {",
+   "        soma += i;",
+   "    }",
+   "    i++;",
+   "}",
+   "System.out.println(\"Soma: \" + soma);"
+  ]
+ }
+}

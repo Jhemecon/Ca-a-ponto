@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎃</text></svg>">
+<title>Caça ao Ponto e Vírgula – Halloween</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Creepster&family=Fira+Code:wght@500;700&display=swap">
+<link rel="stylesheet" href="css/estilo.css"></head><body>
+<span class="dec" id="b1">🦇</span><span class="dec" id="b2">🦇</span><span class="dec" id="g1">👻</span>
+<div id="app">
+  <div id="hud"><span>👤 <span id="pn"></span></span><span>👻 <span id="n"></span></span><div id="bw"><div id="bar"></div></div><span id="tm">60s</span><span>🎃 <span id="sc">0</span></span><button id="fs" aria-label="Tela cheia">⛶</button></div>
+  <div id="pop"></div>
+  <div id="code"><div id="ch"><span id="lang" class="C">C</span><span id="hint"></span></div><div id="lines"></div></div>
+  <div id="msg"></div>
+</div>
+
+<div class="scr on" id="start">
+  <div class="big">Caça ao Ponto e Vírgula</div><div class="row"><div class="col">
+  <p>Os bugs assombram o código! Toque na <b>linha</b> onde falta o <b>;</b> em <b>C</b> e <b>Java</b>, ou o <b>:</b> em <b>Python</b>.<br>São 3 fases: <b>Fácil</b>, <b>Médio</b> e <b>Difícil</b>, e o código cresce a cada uma.<br>O tempo é por código: <b>30s</b> no Fácil, <b>15s</b> no Médio e <b>10s</b> no Difícil. Cada erro tira <b>5s</b>. Quanto mais rápido e sem errar, mais pontos!</p>
+  <div class="acts"><button class="btn m" id="play">🎃 JOGAR</button><button class="btn m" id="btnBat">⚔️ BATALHA</button></div><button class="btn sm g" id="btnTut">❓ Como jogar</button>
+  </div><div class="rk"><h3>🏆 Ranking</h3><ol id="rk1"></ol></div></div>
+</div>
+<div class="scr" id="whoS"><div class="big" id="whoT">Quem é você?</div><div class="grid" id="pl"></div><div class="acts"><button class="btn sm" id="newp">➕ Novo jogador</button><button class="btn sm g" id="back">← Voltar</button></div></div>
+<div class="scr" id="nmS"><div class="big" id="nmT">Qual é o seu nome?</div><div id="nin"></div><div id="kb"></div><div id="nerr"></div><div class="acts"><button class="btn sm g" id="nback">← Voltar</button><button class="btn sm" id="nok">✔ Pronto</button></div></div>
+<div class="scr" id="tut"><div class="big" id="tutT"></div><p id="tutH"></p><div id="tutD"></div><div id="tutM"></div><div class="acts"><button class="btn sm g" id="tutAnt">← Voltar</button><span id="tutP"></span><button class="btn sm" id="tutProx"></button></div><button class="btn sm g" id="tutPular">Pular tutorial</button></div>
+<div class="scr" id="telaVS"><div class="big">⚔️ Batalha!</div><div class="vs"><span id="vsN1"></span><span>×</span><span id="vsN2"></span></div><p>Os dois jogam na <b>mesma tela dividida</b> e veem <b>o mesmo código</b>. Quem tocar primeiro na linha certa <b>leva o round</b>.<br>Errou? O seu lado <b>congela por 2 segundos</b>.<br>Melhor de 5 rounds: quem fizer <b>3</b> vence!</p><div class="acts"><button class="btn" id="vsGo">⚔️ COMEÇAR</button><button class="btn sm g" id="vsVoltar">← Cancelar</button></div></div>
+<div class="scr" id="batalha"><div id="bInfo"></div><div id="bBF"><div id="bBarra"></div></div><div id="bLados"><div class="lado" id="lado0" data-s="0"><div class="cab" id="cab0"></div><div class="cod" id="cod0"></div></div><div class="lado" id="lado1" data-s="1"><div class="cab" id="cab1"></div><div class="cod" id="cod1"></div></div></div><div id="bMsg"></div></div>
+<div class="scr" id="fimBat"><div class="big" id="fbT"></div><p id="fbP"></p><div class="acts"><button class="btn" id="revanche">🔁 REVANCHE</button><button class="btn sm g" id="fbInicio">← Início</button></div></div>
+<div class="scr" id="phase"><div class="big" id="pt"></div><p id="pd"></p></div>
+<div class="scr" id="end">
+  <div class="big" id="et"></div>
+  <div class="row"><div class="col"><p id="es"></p>
+  <button class="btn" id="again">🎃 JOGAR DE NOVO</button></div><div class="rk"><h3>🏆 Ranking</h3><ol id="rk2"></ol></div></div>
+</div>
+
+<script src="js/codigos.js"></script>
+<script src="js/jogo.js"></script></body></html>

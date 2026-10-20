@@ -1,0 +1,254 @@
+[
+ {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 3,
+  "linhas": [
+   "int[] notas = {7, 9, 5};",
+   "int soma = 0;",
+   "for (int n : notas) {",
+   "    soma += n;",
+   "}"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 2,
+  "linhas": [
+   "double saldo = 500.0;",
+   "double saque = 120.5;",
+   "saldo = saldo - saque;",
+   "System.out.println(saldo);"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 2,
+  "linhas": [
+   "int i = 10;",
+   "while (i > 0) {",
+   "    i -= 3;",
+   "}",
+   "System.out.println(i);"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 3,
+  "linhas": [
+   "public class Conta {",
+   "    double saldo;",
+   "    public void depositar(double valor) {",
+   "        this.saldo += valor;",
+   "    }",
+   "    public double getSaldo() {",
+   "        return this.saldo;",
+   "    }",
+   "}"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 7,
+  "linhas": [
+   "int[] pontos = new int[5];",
+   "for (int i = 0; i < pontos.length; i++) {",
+   "    pontos[i] = i * 2;",
+   "}",
+   "int maior = pontos[0];",
+   "for (int p : pontos) {",
+   "    if (p > maior) {",
+   "        maior = p;",
+   "    }",
+   "}"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 7,
+  "linhas": [
+   "Scanner teclado = new Scanner(System.in);",
+   "System.out.print(\"Quantos números? \");",
+   "int n = teclado.nextInt();",
+   "int total = 0;",
+   "for (int i = 1; i <= n; i++) {",
+   "    total += i;",
+   "}",
+   "System.out.println(\"Total: \" + total);"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 4,
+  "linhas": [
+   "public static int contar(int[] v, int alvo) {",
+   "    int vezes = 0;",
+   "    for (int x : v) {",
+   "        if (x == alvo) {",
+   "            vezes++;",
+   "        }",
+   "    }",
+   "    return vezes;",
+   "}"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 4,
+  "linhas": [
+   "System.out.println(\"Contagem regressiva!\");",
+   "int i = 20;",
+   "do {",
+   "    if (i % 5 == 0) {",
+   "        System.out.println(\"Fantasma \" + i);",
+   "    }",
+   "    i--;",
+   "} while (i > 0);"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 7,
+  "linhas": [
+   "public class Cofre {",
+   "    double saldo;",
+   "    double limite;",
+   "    public boolean sacar(double valor) {",
+   "        if (valor > this.saldo + this.limite) {",
+   "            return false;",
+   "        }",
+   "        this.saldo -= valor;",
+   "        return true;",
+   "    }",
+   "}"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 8,
+  "linhas": [
+   "int[][] m = new int[3][3];",
+   "for (int i = 0; i < 3; i++) {",
+   "    for (int j = 0; j < 3; j++) {",
+   "        m[i][j] = i + j;",
+   "    }",
+   "}",
+   "int soma = 0;",
+   "for (int i = 0; i < 3; i++) {",
+   "    soma += m[i][i];",
+   "}",
+   "System.out.println(soma);"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 7,
+  "linhas": [
+   "int[] v = {2, 5, 6, 9, 10};",
+   "int pares = 0;",
+   "int impares = 0;",
+   "for (int i = 0; i < v.length; i++) {",
+   "    if (v[i] % 2 == 0) {",
+   "        pares++;",
+   "    } else {",
+   "        impares++;",
+   "    }",
+   "}",
+   "System.out.println(\"Pares: \" + pares);",
+   "System.out.println(\"Ímpares: \" + impares);"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 6,
+  "linhas": [
+   "int i = 1;",
+   "int soma = 0;",
+   "while (i <= 20) {",
+   "    if (i % 2 == 0) {",
+   "        soma += i;",
+   "    } else if (i % 5 == 0) {",
+   "        soma += 1;",
+   "    }",
+   "    i++;",
+   "}",
+   "System.out.println(\"Soma: \" + soma);"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 5,
+  "linhas": [
+   "public class Fantasma {",
+   "    String nome;",
+   "    int energia;",
+   "    public Fantasma(String nome, int energia) {",
+   "        this.nome = nome;",
+   "        this.energia = energia;",
+   "    }",
+   "    public void assustar() {",
+   "        this.energia -= 10;",
+   "        System.out.println(this.nome + \" assustou!\");",
+   "    }",
+   "}"
+  ]
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "(criado a partir de Aula3, Aula4 e Aula5)",
+  "ln": null,
+  "alvo": 9,
+  "linhas": [
+   "public static double media(double[] notas) {",
+   "    System.out.println(\"Calculando...\");",
+   "    double soma = 0;",
+   "    for (double n : notas) {",
+   "        soma += n;",
+   "    }",
+   "    if (notas.length == 0) {",
+   "        return 0;",
+   "    }",
+   "    return soma / notas.length;",
+   "}"
+  ]
+ }
+]
