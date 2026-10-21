@@ -1,6 +1,245 @@
 [
  {
   "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/Bla/Inteirox3.c",
+  "ini": 6,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "for (i = 1; i <= 5; i++)",
+   "{",
+   "    inteiro = inteiro * 3;",
+   "}"
+  ],
+  "ln": [
+   12,
+   15
+  ],
+  "pont": 2.240440639229036
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/Funções/2.c",
+  "ini": 1,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "#include<stdlib.h>",
+   "int dobro (int num) {",
+   "    return num * 2;",
+   "}"
+  ],
+  "ln": [
+   2,
+   6
+  ],
+  "pont": 2.238723974732684
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/Funções/1.c",
+  "ini": 3,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "if (a == b && a == c && b == c)",
+   "{",
+   "    return 1;",
+   "}"
+  ],
+  "ln": [
+   5,
+   8
+  ],
+  "pont": 2.228849600482611
+ },
+ {
+  "lang": "c",
+  "fase": "dificil",
+  "arquivo": "C/ESTRUTURA DE DADOS 2/pilha_memoria.c",
+  "ini": 19,
+  "tam": 11,
+  "alvo": 1,
+  "linhas": [
+   "void push(Pilha *p, float v) {",
+   "    NoPilha *novoNo = (NoPilha*) malloc(sizeof(NoPilha));",
+   "    if (novoNo == NULL) {",
+   "        printf(\"Erro: Memoria insuficiente.\\n\");",
+   "        return;",
+   "    }",
+   "    novoNo->valor = v;",
+   "    novoNo->prox = p->topoPilha;",
+   "    p->topoPilha = novoNo;",
+   "    p->tamanho++;",
+   "}"
+  ],
+  "ln": [
+   25,
+   35
+  ],
+  "pont": 2.227445129513844
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 3/11.c",
+  "ini": 3,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "float soma = 0;",
+   "for (int i = 0; i < n; i++) {",
+   "    soma += vetor[i];",
+   "}"
+  ],
+  "ln": [
+   5,
+   8
+  ],
+  "pont": 2.2178373634851414
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 2/BINGO.c",
+  "ini": 123,
+  "tam": 4,
+  "alvo": 1,
+  "linhas": [
+   "if (cartela_marcada[i][j][u] == 0) {",
+   "    cont_cartela[u] += 1;",
+   "    cartela_marcada[i][j][u] = 1;",
+   "}"
+  ],
+  "ln": [
+   144,
+   147
+  ],
+  "pont": 2.1796637136632766
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 3/10.c",
+  "ini": 0,
+  "tam": 9,
+  "alvo": 3,
+  "linhas": [
+   "#include <stdio.h>",
+   "#include <stdlib.h>",
+   "void preenche_decrescente(int vetor[], int n) {",
+   "    int j = 0;",
+   "    for (int i = n; i >= 0; i--) {",
+   "        vetor[j] = i;",
+   "        j++;",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   1,
+   10
+  ],
+  "pont": 2.1461478327250685
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/fatorial.c",
+  "ini": 0,
+  "tam": 10,
+  "alvo": 6,
+  "linhas": [
+   "#include<stdio.h>",
+   "#include<stdlib.h>",
+   "int fatorial (int n) {",
+   "    int i, f = 1;",
+   "    for (i = 1; i <= n; i++)",
+   "    {",
+   "        f *= i;",
+   "    }",
+   "    return f;",
+   "}"
+  ],
+  "ln": [
+   1,
+   11
+  ],
+  "pont": 2.144071791959223
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/Bla/#teste.c",
+  "ini": 1,
+  "tam": 5,
+  "alvo": 2,
+  "linhas": [
+   "int main()",
+   "{",
+   "    printf(\"\\tHello World \\\"LINDO\\\"?\");",
+   "    return 0;",
+   "}"
+  ],
+  "ln": [
+   3,
+   7
+  ],
+  "pont": 2.1359208618492165
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 3/4.c",
+  "ini": 3,
+  "tam": 10,
+  "alvo": 1,
+  "linhas": [
+   "char string[100], valor = '-';",
+   "puts(\"Digite uma string: \");",
+   "fgets(string, 99, stdin);",
+   "for (int i = 0; string[i] != '\\0'; i++)",
+   "{",
+   "    if (string[i] == ' ')",
+   "    {",
+   "        string[i] = valor;",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   5,
+   15
+  ],
+  "pont": 2.131225248806329
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/ESTRUTURA DE DADOS 2/pilha_memoria.c",
+  "ini": 31,
+  "tam": 9,
+  "alvo": 1,
+  "linhas": [
+   "if (pilhaVazia(p)) {",
+   "    printf(\"Pilha vazia.\\n\");",
+   "    return 0;",
+   "}",
+   "NoPilha *noRemovido = p->topoPilha;",
+   "float v = noRemovido->valor;",
+   "p->topoPilha = noRemovido->prox;",
+   "free(noRemovido);",
+   "p->tamanho--;"
+  ],
+  "ln": [
+   38,
+   46
+  ],
+  "pont": 2.1294819031740815
+ },
+ {
+  "lang": "c",
   "fase": "dificil",
   "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 2/tres.c",
   "ini": 2,
@@ -24,6 +263,305 @@
    15
   ],
   "pont": 2.122152414900682
+ },
+ {
+  "lang": "c",
+  "fase": "dificil",
+  "arquivo": "C/Bla/seleção.c",
+  "ini": 13,
+  "tam": 11,
+  "alvo": 5,
+  "linhas": [
+   "int buscaMenor(int arr, int tamanho) {",
+   "    int menor = arr[0];",
+   "    int menor_indice = 0;",
+   "    for (int i = 1; i < tamanho; i++) {",
+   "        if (arr[i] < menor) {",
+   "            menor = arr[i];",
+   "            menor_indice = i;",
+   "        }",
+   "    }",
+   "    return menor_indice;",
+   "}"
+  ],
+  "ln": [
+   17,
+   27
+  ],
+  "pont": 2.12200643634261
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 2/2.c",
+  "ini": 13,
+  "tam": 8,
+  "alvo": 5,
+  "linhas": [
+   "for (j = 0; j < 10; j++)",
+   "{",
+   "    if (temp == vetor[j])",
+   "    {",
+   "        repetido = 1;",
+   "        break;",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   18,
+   25
+  ],
+  "pont": 2.121043589362775
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/Bla/Média_Aritmética.c",
+  "ini": 17,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "if (mf >= 6)",
+   "{",
+   "    printf (\"\\nAPROVADO!\");",
+   "}"
+  ],
+  "ln": [
+   21,
+   24
+  ],
+  "pont": 2.120636964401804
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/Bla/seleção.c",
+  "ini": 14,
+  "tam": 9,
+  "alvo": 4,
+  "linhas": [
+   "int menor = arr[0];",
+   "int menor_indice = 0;",
+   "for (int i = 1; i < tamanho; i++) {",
+   "    if (arr[i] < menor) {",
+   "        menor = arr[i];",
+   "        menor_indice = i;",
+   "    }",
+   "}",
+   "return menor_indice;"
+  ],
+  "ln": [
+   18,
+   26
+  ],
+  "pont": 2.120340539295257
+ },
+ {
+  "lang": "c",
+  "fase": "dificil",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 2/BINGO.c",
+  "ini": 118,
+  "tam": 12,
+  "alvo": 9,
+  "linhas": [
+   "for (j = 0; j < 5; j++) {",
+   "    if (i == 2 && j == 2) {",
+   "        continue;",
+   "    }",
+   "    if (sorteio[num] == cartela[i][j][u]) {",
+   "        if (cartela_marcada[i][j][u] == 0) {",
+   "            cont_cartela[u] += 1;",
+   "            cartela_marcada[i][j][u] = 1;",
+   "        }",
+   "        break;",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   139,
+   150
+  ],
+  "pont": 2.1186834517777458
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 2/1.c",
+  "ini": 17,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "if (((i + 1) + (j + 1)) == 4)",
+   "{",
+   "    diagonal_secundaria += matriz[i][j];",
+   "}"
+  ],
+  "ln": [
+   24,
+   27
+  ],
+  "pont": 2.105809145329995
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Média.c",
+  "ini": 2,
+  "tam": 8,
+  "alvo": 6,
+  "linhas": [
+   "float nota[5], media_geral, somatoria = 0;",
+   "int aluno = 1;",
+   "for (int i = 0; i < 5; i++)",
+   "{",
+   "    printf (\"Digite a nota do aluno %d: \", aluno);",
+   "    scanf (\"%f\", &nota[i]);",
+   "    aluno++;",
+   "}"
+  ],
+  "ln": [
+   5,
+   13
+  ],
+  "pont": 2.098579750860335
+ },
+ {
+  "lang": "c",
+  "fase": "dificil",
+  "arquivo": "C/ESTRUTURA DE DADOS 2/pilha_vetor.c",
+  "ini": 36,
+  "tam": 11,
+  "alvo": 3,
+  "linhas": [
+   "void mostra_pilha(Pilha *p) {",
+   "    if (pilha_vazia(p)) {",
+   "        printf (\"Não existe nenhum elemento na lista.\\n\");",
+   "        return;",
+   "    }",
+   "    printf(\"Conteúdo da pilha\\n\");",
+   "    for (int i=p->n-1; i >= 0; i--) {",
+   "        printf(\"%0.f \", p->vet[i]);",
+   "    }",
+   "    printf(\"\\n\");",
+   "}"
+  ],
+  "ln": [
+   44,
+   54
+  ],
+  "pont": 2.0928040519947517
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/somamaisum.c",
+  "ini": 1,
+  "tam": 5,
+  "alvo": 3,
+  "linhas": [
+   "#include<stdlib.h>",
+   "void somaMaisum(int *n) {",
+   "    *n = *n + 1;",
+   "    printf (\"Dentro da função: %d\\n\", *n);",
+   "}"
+  ],
+  "ln": [
+   2,
+   7
+  ],
+  "pont": 2.0838178345664553
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Bubblesort.c",
+  "ini": 14,
+  "tam": 9,
+  "alvo": 6,
+  "linhas": [
+   "for (int i = 0; i < 7; i++)",
+   "{",
+   "    if (numero[i] > numero[i+1])",
+   "    {",
+   "        int temp = numero[i];",
+   "        numero[i] = numero[i+1];",
+   "        numero[i+1] = temp;",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   20,
+   28
+  ],
+  "pont": 2.0825639838085994
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Média.c",
+  "ini": 2,
+  "tam": 8,
+  "alvo": 1,
+  "linhas": [
+   "float nota[5], media_geral, somatoria = 0;",
+   "int aluno = 1;",
+   "for (int i = 0; i < 5; i++)",
+   "{",
+   "    printf (\"Digite a nota do aluno %d: \", aluno);",
+   "    scanf (\"%f\", &nota[i]);",
+   "    aluno++;",
+   "}"
+  ],
+  "ln": [
+   5,
+   13
+  ],
+  "pont": 2.0825215995333792
+ },
+ {
+  "lang": "c",
+  "fase": "dificil",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 2/tres.c",
+  "ini": 2,
+  "tam": 11,
+  "alvo": 5,
+  "linhas": [
+   "int vetor[10], i, x, temp = 0, somatorio = 0, negativo = 0;",
+   "for (i = 0; i < 10; i++)",
+   "{",
+   "    printf (\"Digite o %d° numero: \", i + 1);",
+   "    scanf (\"%d\", &vetor[i]);",
+   "    somatorio += vetor[i];",
+   "    if (vetor[i] < 0)",
+   "    {",
+   "        negativo++;",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   4,
+   15
+  ],
+  "pont": 2.079797959392451
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/Funções/4.c",
+  "ini": 19,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "if (vetor[i] == receptor) {",
+   "    printf (\"%d existe no vetor!\", receptor);",
+   "    break;",
+   "}"
+  ],
+  "ln": [
+   23,
+   26
+  ],
+  "pont": 2.0787407206418718
  },
  {
   "lang": "c",
@@ -80,6 +618,128 @@
  {
   "lang": "c",
   "fase": "dificil",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 3/2.c",
+  "ini": 8,
+  "tam": 11,
+  "alvo": 10,
+  "linhas": [
+   "for (int i = 0; i < 10; i++)",
+   "{",
+   "    for (int j = 0; string[j] != '\\0'; j++)",
+   "    {",
+   "        if (string[j] == vogais[i])",
+   "        {",
+   "            cont_vogais += 1;",
+   "        }",
+   "    }",
+   "}",
+   "printf (\"Contador de vogais: %d\", cont_vogais);"
+  ],
+  "ln": [
+   12,
+   23
+  ],
+  "pont": 2.0556795956867817
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/ESTRUTURA DE DADOS 2/Encadeado.c",
+  "ini": 21,
+  "tam": 10,
+  "alvo": 6,
+  "linhas": [
+   "void mostra_lista (TipoNo *L) {",
+   "    TipoNo *aux;",
+   "    aux = L;",
+   "    printf(\"Conteúdo da lista:\\n\");",
+   "    while (aux) {",
+   "        printf (\"%d \", aux -> dados);",
+   "        aux = aux -> proxNo;",
+   "    }",
+   "    printf(\"\\n\");",
+   "}"
+  ],
+  "ln": [
+   26,
+   35
+  ],
+  "pont": 2.0522189784681597
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/Alocação/6.c",
+  "ini": 6,
+  "tam": 10,
+  "alvo": 8,
+  "linhas": [
+   "int *vetor = (int *) malloc(n * sizeof(int));",
+   "if(vetor == NULL) {",
+   "    printf(\"Erro ao alocar memoria!\\n\");",
+   "    return 1;",
+   "}",
+   "for (int i = 0; i < n; i++)",
+   "{",
+   "    printf(\"Digite o elemento %d: \", i + 1);",
+   "    scanf(\"%d\", &vetor[i]);",
+   "}"
+  ],
+  "ln": [
+   8,
+   18
+  ],
+  "pont": 2.045350118444413
+ },
+ {
+  "lang": "c",
+  "fase": "dificil",
+  "arquivo": "C/Introdução a Programação/Lista de Exercícios 2/Questão 13.c",
+  "ini": 2,
+  "tam": 12,
+  "alvo": 5,
+  "linhas": [
+   "int x, i, contador = 0;",
+   "printf(\"Digite um número: \");",
+   "scanf(\"%d\", &x);",
+   "if (x <= 1) {",
+   "    printf(\"%d não é primo.\\n\", x);",
+   "    return 0;",
+   "}",
+   "for (i = 1; i <= x; i++) {",
+   "    if (x % i == 0) {",
+   "        contador++;",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   5,
+   23
+  ],
+  "pont": 2.0380839066072096
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/prototipo.c",
+  "ini": 16,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "float expo(float a, int x) {",
+   "    x = pow(a, 2);",
+   "    return x;",
+   "}"
+  ],
+  "ln": [
+   21,
+   24
+  ],
+  "pont": 2.0376606646765474
+ },
+ {
+  "lang": "c",
+  "fase": "dificil",
   "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 3/4.c",
   "ini": 3,
   "tam": 11,
@@ -102,6 +762,69 @@
    17
   ],
   "pont": 2.0351162914287917
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/Bla/Maior_e_menor_número.c",
+  "ini": 9,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "if (a>b && a>c)",
+   "{",
+   "    printf (\"O maior número é %d.\", a);",
+   "}"
+  ],
+  "ln": [
+   13,
+   16
+  ],
+  "pont": 2.032699306824827
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/Alocação/4.c",
+  "ini": 12,
+  "tam": 9,
+  "alvo": 7,
+  "linhas": [
+   "for (int i = 0; i < n; i++)",
+   "{",
+   "    printf(\"Digite o elemento %d: \", i + 1);",
+   "    scanf(\"%f\", &vetor[i]);",
+   "    soma += vetor[i];",
+   "    produto *= vetor[i];",
+   "}",
+   "printf(\"Soma: %.1f\\n\", soma);",
+   "printf(\"Produto: %.1f\\n\", produto);"
+  ],
+  "ln": [
+   16,
+   25
+  ],
+  "pont": 2.029254457624257
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/Ponteiros/1.c",
+  "ini": 4,
+  "tam": 5,
+  "alvo": 2,
+  "linhas": [
+   "int main () {",
+   "    int lista[TAM];",
+   "    incremento(lista, TAM);",
+   "    mostrar_vetor(lista, TAM);",
+   "}"
+  ],
+  "ln": [
+   7,
+   11
+  ],
+  "pont": 2.0270259921660494
  },
  {
   "lang": "c",
@@ -131,6 +854,158 @@
  },
  {
   "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/Bla/Fatorial.c",
+  "ini": 5,
+  "tam": 5,
+  "alvo": 4,
+  "linhas": [
+   "for (i = 1; i <= n; i++)",
+   "{",
+   "    fatorial = fatorial * i;",
+   "}",
+   "printf (\"%d\", fatorial);"
+  ],
+  "ln": [
+   10,
+   15
+  ],
+  "pont": 2.007932969159587
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 2/2.c",
+  "ini": 15,
+  "tam": 5,
+  "alvo": 3,
+  "linhas": [
+   "if (temp == vetor[j])",
+   "{",
+   "    repetido = 1;",
+   "    break;",
+   "}"
+  ],
+  "ln": [
+   20,
+   24
+  ],
+  "pont": 2.005392212942777
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/Alocação/5.c",
+  "ini": 3,
+  "tam": 8,
+  "alvo": 3,
+  "linhas": [
+   "int n, receptor;",
+   "printf(\"Digite o numero de elementos: \");",
+   "scanf(\"%d\", &n);",
+   "int *vetor = (int *) malloc(n * sizeof(int));",
+   "if(vetor == NULL) {",
+   "    printf(\"Erro ao alocar memoria!\\n\");",
+   "    return 1;",
+   "}"
+  ],
+  "ln": [
+   5,
+   12
+  ],
+  "pont": 1.9821902789136456
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/Funções/8.c",
+  "ini": 19,
+  "tam": 4,
+  "alvo": 1,
+  "linhas": [
+   "if (n == 0 || n == 1) {",
+   "    return 1;",
+   "}",
+   "return n * fatorial(n - 1);"
+  ],
+  "ln": [
+   26,
+   29
+  ],
+  "pont": 1.9814424518979652
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/prototipo.c",
+  "ini": 8,
+  "tam": 5,
+  "alvo": 4,
+  "linhas": [
+   "float k, w = 5.4;",
+   "k = raiz(w);",
+   "int x, y = 1, z = 2;",
+   "x = soma(y, z);",
+   "printf (\"Expo: %.1f\\n\", l);"
+  ],
+  "ln": [
+   11,
+   16
+  ],
+  "pont": 1.9799175501920812
+ },
+ {
+  "lang": "c",
+  "fase": "dificil",
+  "arquivo": "C/ESTRUTURA DE DADOS 2/fila_dinamica.c",
+  "ini": 6,
+  "tam": 12,
+  "alvo": 5,
+  "linhas": [
+   "typedef struct {",
+   "    int tamanho;",
+   "    NoFila *inicioFila;",
+   "} Fila;",
+   "Fila* criarFila() {",
+   "    Fila *f = (Fila*) malloc(sizeof(Fila));",
+   "    if (f != NULL) {",
+   "        f->tamanho = 0;",
+   "        f->inicioFila = NULL;",
+   "    }",
+   "    return f;",
+   "}"
+  ],
+  "ln": [
+   9,
+   21
+  ],
+  "pont": 1.979037009191741
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 1/11.c",
+  "ini": 2,
+  "tam": 8,
+  "alvo": 1,
+  "linhas": [
+   "int n, i, fatorial = 1;",
+   "printf (\"Digite um número: \");",
+   "scanf (\"%d\", &n);",
+   "for (i = 1; i <= n; i++)",
+   "{",
+   "    fatorial = fatorial * i;",
+   "}",
+   "printf (\"%d\", fatorial);"
+  ],
+  "ln": [
+   4,
+   14
+  ],
+  "pont": 1.9735773478445262
+ },
+ {
+  "lang": "c",
   "fase": "dificil",
   "arquivo": "C/ESTRUTURA DE DADOS 2/Encadeado.c",
   "ini": 36,
@@ -154,6 +1029,25 @@
    52
   ],
   "pont": 1.972893030720694
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 3/2.c",
+  "ini": 12,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "if (string[j] == vogais[i])",
+   "{",
+   "    cont_vogais += 1;",
+   "}"
+  ],
+  "ln": [
+   16,
+   19
+  ],
+  "pont": 1.9653515040803242
  },
  {
   "lang": "c",
@@ -181,6 +1075,32 @@
    17
   ],
   "pont": 1.9647757852312986
+ },
+ {
+  "lang": "c",
+  "fase": "dificil",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/Funções/6.c",
+  "ini": 3,
+  "tam": 11,
+  "alvo": 1,
+  "linhas": [
+   "int main () {",
+   "    float notas[10];",
+   "    int i;",
+   "    for (i = 0; i < 10; i++)",
+   "    {",
+   "        printf (\"Digite a nota do %d° aluno: \", i+1);",
+   "        scanf (\"%f\", &notas[i]);",
+   "    }",
+   "    printf (\"\\n\");",
+   "    media(notas);",
+   "}"
+  ],
+  "ln": [
+   6,
+   16
+  ],
+  "pont": 1.9610400268535653
  },
  {
   "lang": "c",
@@ -265,172 +1185,6 @@
  {
   "lang": "c",
   "fase": "medio",
-  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 3/10.c",
-  "ini": 0,
-  "tam": 9,
-  "alvo": 3,
-  "linhas": [
-   "#include <stdio.h>",
-   "#include <stdlib.h>",
-   "void preenche_decrescente(int vetor[], int n) {",
-   "    int j = 0;",
-   "    for (int i = n; i >= 0; i--) {",
-   "        vetor[j] = i;",
-   "        j++;",
-   "    }",
-   "}"
-  ],
-  "ln": [
-   1,
-   10
-  ],
-  "pont": 2.1461478327250685
- },
- {
-  "lang": "c",
-  "fase": "medio",
-  "arquivo": "C/ESTRUTURA DE DADOS 2/pilha_memoria.c",
-  "ini": 31,
-  "tam": 9,
-  "alvo": 1,
-  "linhas": [
-   "if (pilhaVazia(p)) {",
-   "    printf(\"Pilha vazia.\\n\");",
-   "    return 0;",
-   "}",
-   "NoPilha *noRemovido = p->topoPilha;",
-   "float v = noRemovido->valor;",
-   "p->topoPilha = noRemovido->prox;",
-   "free(noRemovido);",
-   "p->tamanho--;"
-  ],
-  "ln": [
-   38,
-   46
-  ],
-  "pont": 2.1294819031740815
- },
- {
-  "lang": "c",
-  "fase": "medio",
-  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 2/2.c",
-  "ini": 13,
-  "tam": 8,
-  "alvo": 5,
-  "linhas": [
-   "for (j = 0; j < 10; j++)",
-   "{",
-   "    if (temp == vetor[j])",
-   "    {",
-   "        repetido = 1;",
-   "        break;",
-   "    }",
-   "}"
-  ],
-  "ln": [
-   18,
-   25
-  ],
-  "pont": 2.121043589362775
- },
- {
-  "lang": "c",
-  "fase": "medio",
-  "arquivo": "C/Bla/seleção.c",
-  "ini": 14,
-  "tam": 9,
-  "alvo": 4,
-  "linhas": [
-   "int menor = arr[0];",
-   "int menor_indice = 0;",
-   "for (int i = 1; i < tamanho; i++) {",
-   "    if (arr[i] < menor) {",
-   "        menor = arr[i];",
-   "        menor_indice = i;",
-   "    }",
-   "}",
-   "return menor_indice;"
-  ],
-  "ln": [
-   18,
-   26
-  ],
-  "pont": 2.120340539295257
- },
- {
-  "lang": "c",
-  "fase": "medio",
-  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Média.c",
-  "ini": 2,
-  "tam": 8,
-  "alvo": 1,
-  "linhas": [
-   "float nota[5], media_geral, somatoria = 0;",
-   "int aluno = 1;",
-   "for (int i = 0; i < 5; i++)",
-   "{",
-   "    printf (\"Digite a nota do aluno %d: \", aluno);",
-   "    scanf (\"%f\", &nota[i]);",
-   "    aluno++;",
-   "}"
-  ],
-  "ln": [
-   5,
-   13
-  ],
-  "pont": 2.0825215995333792
- },
- {
-  "lang": "c",
-  "fase": "medio",
-  "arquivo": "C/ESTRUTURA DE DADOS 1/Alocação/6.c",
-  "ini": 6,
-  "tam": 10,
-  "alvo": 8,
-  "linhas": [
-   "int *vetor = (int *) malloc(n * sizeof(int));",
-   "if(vetor == NULL) {",
-   "    printf(\"Erro ao alocar memoria!\\n\");",
-   "    return 1;",
-   "}",
-   "for (int i = 0; i < n; i++)",
-   "{",
-   "    printf(\"Digite o elemento %d: \", i + 1);",
-   "    scanf(\"%d\", &vetor[i]);",
-   "}"
-  ],
-  "ln": [
-   8,
-   18
-  ],
-  "pont": 2.045350118444413
- },
- {
-  "lang": "c",
-  "fase": "medio",
-  "arquivo": "C/ESTRUTURA DE DADOS 1/Alocação/5.c",
-  "ini": 3,
-  "tam": 8,
-  "alvo": 3,
-  "linhas": [
-   "int n, receptor;",
-   "printf(\"Digite o numero de elementos: \");",
-   "scanf(\"%d\", &n);",
-   "int *vetor = (int *) malloc(n * sizeof(int));",
-   "if(vetor == NULL) {",
-   "    printf(\"Erro ao alocar memoria!\\n\");",
-   "    return 1;",
-   "}"
-  ],
-  "ln": [
-   5,
-   12
-  ],
-  "pont": 1.9821902789136456
- },
- {
-  "lang": "c",
-  "fase": "medio",
   "arquivo": "C/Introdução a Programação/Lista de Exercícios 2/Questão 15.c",
   "ini": 3,
   "tam": 10,
@@ -452,6 +1206,140 @@
    18
   ],
   "pont": 1.951341236669498
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 3/8.c",
+  "ini": 13,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "char str[100], ch;",
+   "int i, j;",
+   "printf (\"Digite uma string: \");",
+   "fgets (str, 99, stdin);"
+  ],
+  "ln": [
+   16,
+   19
+  ],
+  "pont": 1.9359806117468747
+ },
+ {
+  "lang": "c",
+  "fase": "facil",
+  "arquivo": "C/Introdução a Programação/Lista de Exercícios 1/Questão 44.c",
+  "ini": 3,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "int prestacoes;",
+   "printf (\"Informe o valor da mercadoria: \");",
+   "scanf (\"%f\", &valormercadoria);",
+   "prestacoes = valormercadoria / 3;"
+  ],
+  "ln": [
+   6,
+   11
+  ],
+  "pont": 1.9330774585640134
+ },
+ {
+  "lang": "c",
+  "fase": "dificil",
+  "arquivo": "C/Bla/Somatório2.c",
+  "ini": 0,
+  "tam": 12,
+  "alvo": 6,
+  "linhas": [
+   "#include<stdio.h>",
+   "int main () {",
+   "    int a, i, s = 0;",
+   "    for (i = 1; i <= 10; i++)",
+   "    {",
+   "        printf (\"Digite um número: \");",
+   "        scanf (\"%d\", &a);",
+   "        s = s + a;",
+   "    }",
+   "    printf (\"Somatório: %d\", s);",
+   "    return 0;",
+   "}"
+  ],
+  "ln": [
+   1,
+   17
+  ],
+  "pont": 1.9195306821667968
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/Bla/Adivinhar2.c",
+  "ini": 19,
+  "tam": 8,
+  "alvo": 6,
+  "linhas": [
+   "if (t2 == 0)",
+   "{",
+   "    continue;",
+   "}",
+   "else",
+   "{",
+   "    printf (\"Errou! Faltam %d tentativas!\\n\", t2);",
+   "}"
+  ],
+  "ln": [
+   28,
+   35
+  ],
+  "pont": 1.9176670712263442
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 3/12.c",
+  "ini": 26,
+  "tam": 8,
+  "alvo": 5,
+  "linhas": [
+   "int main () {",
+   "    int matriz[3][3];",
+   "    preencherMatriz(matriz);",
+   "    exibirMatriz(matriz);",
+   "    int traco = calcularTraco(matriz);",
+   "    printf(\"Traço da matriz: %d\\n\", traco);",
+   "    return 0;",
+   "}"
+  ],
+  "ln": [
+   31,
+   38
+  ],
+  "pont": 1.9152316694871367
+ },
+ {
+  "lang": "c",
+  "fase": "medio",
+  "arquivo": "C/ESTRUTURA DE DADOS 1/Alocação/2.c",
+  "ini": 4,
+  "tam": 8,
+  "alvo": 2,
+  "linhas": [
+   "int contador_positiva = 0, contador_negativa = 0;",
+   "printf(\"Digite o numero de elementos: \");",
+   "scanf(\"%f\", &n);",
+   "float *vetor = (float *) malloc(n * sizeof(float));",
+   "if(vetor == NULL) {",
+   "    printf(\"Erro ao alocar memoria!\\n\");",
+   "    return 1;",
+   "}"
+  ],
+  "ln": [
+   6,
+   14
+  ],
+  "pont": 1.9136721622605508
  },
  {
   "lang": "c",
@@ -501,198 +1389,6 @@
   "pont": 1.8554358109171578
  },
  {
-  "lang": "c",
-  "fase": "facil",
-  "arquivo": "C/ESTRUTURA DE DADOS 1/Funções/2.c",
-  "ini": 1,
-  "tam": 4,
-  "alvo": 2,
-  "linhas": [
-   "#include<stdlib.h>",
-   "int dobro (int num) {",
-   "    return num * 2;",
-   "}"
-  ],
-  "ln": [
-   2,
-   6
-  ],
-  "pont": 2.238723974732684
- },
- {
-  "lang": "c",
-  "fase": "facil",
-  "arquivo": "C/ESTRUTURA DE DADOS 1/Funções/1.c",
-  "ini": 3,
-  "tam": 4,
-  "alvo": 2,
-  "linhas": [
-   "if (a == b && a == c && b == c)",
-   "{",
-   "    return 1;",
-   "}"
-  ],
-  "ln": [
-   5,
-   8
-  ],
-  "pont": 2.228849600482611
- },
- {
-  "lang": "c",
-  "fase": "facil",
-  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 3/11.c",
-  "ini": 3,
-  "tam": 4,
-  "alvo": 2,
-  "linhas": [
-   "float soma = 0;",
-   "for (int i = 0; i < n; i++) {",
-   "    soma += vetor[i];",
-   "}"
-  ],
-  "ln": [
-   5,
-   8
-  ],
-  "pont": 2.2178373634851414
- },
- {
-  "lang": "c",
-  "fase": "facil",
-  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 2/BINGO.c",
-  "ini": 123,
-  "tam": 4,
-  "alvo": 1,
-  "linhas": [
-   "if (cartela_marcada[i][j][u] == 0) {",
-   "    cont_cartela[u] += 1;",
-   "    cartela_marcada[i][j][u] = 1;",
-   "}"
-  ],
-  "ln": [
-   144,
-   147
-  ],
-  "pont": 2.1796637136632766
- },
- {
-  "lang": "c",
-  "fase": "facil",
-  "arquivo": "C/ESTRUTURA DE DADOS 1/Funções/4.c",
-  "ini": 19,
-  "tam": 4,
-  "alvo": 2,
-  "linhas": [
-   "if (vetor[i] == receptor) {",
-   "    printf (\"%d existe no vetor!\", receptor);",
-   "    break;",
-   "}"
-  ],
-  "ln": [
-   23,
-   26
-  ],
-  "pont": 2.0787407206418718
- },
- {
-  "lang": "c",
-  "fase": "facil",
-  "arquivo": "C/ESTRUTURA DE DADOS 1/prototipo.c",
-  "ini": 16,
-  "tam": 4,
-  "alvo": 2,
-  "linhas": [
-   "float expo(float a, int x) {",
-   "    x = pow(a, 2);",
-   "    return x;",
-   "}"
-  ],
-  "ln": [
-   21,
-   24
-  ],
-  "pont": 2.0376606646765474
- },
- {
-  "lang": "c",
-  "fase": "facil",
-  "arquivo": "C/Bla/Maior_e_menor_número.c",
-  "ini": 9,
-  "tam": 4,
-  "alvo": 2,
-  "linhas": [
-   "if (a>b && a>c)",
-   "{",
-   "    printf (\"O maior número é %d.\", a);",
-   "}"
-  ],
-  "ln": [
-   13,
-   16
-  ],
-  "pont": 2.032699306824827
- },
- {
-  "lang": "c",
-  "fase": "facil",
-  "arquivo": "C/ESTRUTURA DE DADOS 1/Ponteiros/1.c",
-  "ini": 4,
-  "tam": 5,
-  "alvo": 2,
-  "linhas": [
-   "int main () {",
-   "    int lista[TAM];",
-   "    incremento(lista, TAM);",
-   "    mostrar_vetor(lista, TAM);",
-   "}"
-  ],
-  "ln": [
-   7,
-   11
-  ],
-  "pont": 2.0270259921660494
- },
- {
-  "lang": "c",
-  "fase": "facil",
-  "arquivo": "C/Bla/Fatorial.c",
-  "ini": 5,
-  "tam": 5,
-  "alvo": 4,
-  "linhas": [
-   "for (i = 1; i <= n; i++)",
-   "{",
-   "    fatorial = fatorial * i;",
-   "}",
-   "printf (\"%d\", fatorial);"
-  ],
-  "ln": [
-   10,
-   15
-  ],
-  "pont": 2.007932969159587
- },
- {
-  "lang": "c",
-  "fase": "facil",
-  "arquivo": "C/Técnicas de Programação/Estrutura de dados/Exercicios 3/2.c",
-  "ini": 12,
-  "tam": 4,
-  "alvo": 2,
-  "linhas": [
-   "if (string[j] == vogais[i])",
-   "{",
-   "    cont_vogais += 1;",
-   "}"
-  ],
-  "ln": [
-   16,
-   19
-  ],
-  "pont": 1.9653515040803242
- },
- {
   "lang": "java",
   "fase": "dificil",
   "arquivo": "java/Aula3/While.java",
@@ -720,110 +1416,245 @@
  },
  {
   "lang": "java",
-  "fase": "dificil",
-  "arquivo": "java/Aula5/Duke.java",
+  "fase": "facil",
+  "arquivo": "java/Aula5/Programa1a.java",
   "ini": 6,
-  "tam": 12,
-  "alvo": 3,
+  "tam": 4,
+  "alvo": 2,
   "linhas": [
    "double limite;",
-   "public boolean sacar(double valor) {",
-   "    if (valor <= (this.saldo + this.limite)) {",
-   "        this.saldo -= valor;",
-   "        return true;",
-   "    } else {",
-   "        return false;",
-   "    }",
-   "}",
-   "public void depositar(double valor) {",
-   "    this.saldo += valor;",
+   "public void sacar (double valor) {",
+   "    this.saldo -= valor;",
    "}"
   ],
   "ln": [
-   9,
-   20
+   8,
+   12
   ],
-  "pont": 1.7195909728631271
+  "pont": 2.228004011608928
  },
  {
   "lang": "java",
   "fase": "dificil",
-  "arquivo": "java/Laço.java",
+  "arquivo": "java/Aula3/Multiplo.java",
   "ini": 0,
   "tam": 11,
-  "alvo": 4,
+  "alvo": 7,
   "linhas": [
-   "public class Laço {",
-   "    public static void main (String args[]) {",
-   "        int [] idades = new int[10];",
-   "        for (int i = 0; i < 10; i++) {",
-   "            idades[i] = i * 10;",
-   "        }",
-   "        for (int x: idades) {",
-   "            System.out.println(x);",
-   "        }",
+   "package Aula3;",
+   "import javax.swing.JOptionPane;",
+   "public class Multiplo {",
+   "    public static void main(String[] args) {",
+   "        int i = 1;",
+   "        do {",
+   "            JOptionPane.showMessageDialog(null, i * 3);",
+   "            i++;",
+   "        } while (i <= 100);",
    "    }",
    "}"
   ],
   "ln": [
    1,
-   11
+   13
   ],
-  "pont": 1.6193480285221247
+  "pont": 2.214145063120802
  },
  {
   "lang": "java",
-  "fase": "dificil",
-  "arquivo": "java/Aula4/Matriz1.java",
-  "ini": 21,
-  "tam": 12,
+  "fase": "medio",
+  "arquivo": "java/Aula3/Nuuumeros.java",
+  "ini": 2,
+  "tam": 9,
   "alvo": 2,
   "linhas": [
-   "for (int i = 0; i < matrizC.length; i++) {",
-   "    for (int j = 0; j < matrizC.length; j++) {",
-   "        matrizC[i][j] = matrizA[i][j] + matrizB[i][j];",
+   "public class Nuuumeros {",
+   "    public static void main(String[] args) {",
+   "        int i = 150;",
+   "        do {",
+   "            JOptionPane.showMessageDialog(null, i);",
+   "            i++;",
+   "        } while (i <= 300);",
    "    }",
-   "}",
-   "System.out.println(\"Matriz A:\");",
-   "for (int i = 0; i < matrizA.length; i++) {",
-   "    for (int j = 0; j < matrizA.length; j++) {",
-   "        System.out.print(matrizA[i][j] + \" \");",
-   "    }",
-   "    System.out.println();",
-   "}"
-  ],
-  "ln": [
-   26,
-   38
-  ],
-  "pont": 1.5771710303059265
- },
- {
-  "lang": "java",
-  "fase": "dificil",
-  "arquivo": "java/Aula4/Matriz2.java",
-  "ini": 3,
-  "tam": 12,
-  "alvo": 8,
-  "linhas": [
-   "double[][] matriz = new double[4][4];",
-   "for (int i = 0; i < matriz.length; i++) {",
-   "    for (int j = 0; j < matriz.length; j++) {",
-   "        matriz[i][j] = i * j;",
-   "    }",
-   "}",
-   "for (int i = 0; i < matriz.length; i++) {",
-   "    for (int j = 0; j < matriz.length; j++) {",
-   "        System.out.print(matriz[i][j] + \" \");",
-   "    }",
-   "    System.out.println();",
    "}"
   ],
   "ln": [
    5,
-   17
+   13
   ],
-  "pont": 0.8282394497974827
+  "pont": 2.1910499032987496
+ },
+ {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "java/Aula3/Naturais.java",
+  "ini": 4,
+  "tam": 5,
+  "alvo": 3,
+  "linhas": [
+   "int i = 1;",
+   "do {",
+   "    JOptionPane.showMessageDialog(null, i);",
+   "    i++;",
+   "} while (i <= 20);"
+  ],
+  "ln": [
+   7,
+   11
+  ],
+  "pont": 2.158272536858151
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula3/DoWhile.java",
+  "ini": 2,
+  "tam": 9,
+  "alvo": 2,
+  "linhas": [
+   "public class DoWhile {",
+   "    public static void main(String[] args) {",
+   "        int i = -1;",
+   "        do {",
+   "            JOptionPane.showMessageDialog(null, i);",
+   "            i--;",
+   "        } while (i >= -10);",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   5,
+   13
+  ],
+  "pont": 2.138146053785174
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula4/Mat.java",
+  "ini": 9,
+  "tam": 8,
+  "alvo": 6,
+  "linhas": [
+   "int soma = 0;",
+   "for (int i = 0; i < lista.length; i++) {",
+   "    System.out.printf(\"Digite o %d número: \", i+1);",
+   "    lista[i] = teclado.nextInt();",
+   "    soma += lista[i];",
+   "}",
+   "System.out.println(\"Tamanho da lista: \" + tamanho);",
+   "System.out.println(\"Somatório: \" + soma);"
+  ],
+  "ln": [
+   12,
+   19
+  ],
+  "pont": 2.0736913509638755
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula3/While.java",
+  "ini": 3,
+  "tam": 9,
+  "alvo": 1,
+  "linhas": [
+   "public static void main (String[] args) {",
+   "    int i = 1;",
+   "    while (i <= 15) {",
+   "        if (i % 2 == 0) {",
+   "            JOptionPane.showMessageDialog(null, i);",
+   "        }",
+   "        i++;",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   6,
+   14
+  ],
+  "pont": 2.0718016600417406
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula4/Mat.java",
+  "ini": 10,
+  "tam": 9,
+  "alvo": 3,
+  "linhas": [
+   "for (int i = 0; i < lista.length; i++) {",
+   "    System.out.printf(\"Digite o %d número: \", i+1);",
+   "    lista[i] = teclado.nextInt();",
+   "    soma += lista[i];",
+   "}",
+   "System.out.println(\"Tamanho da lista: \" + tamanho);",
+   "System.out.println(\"Somatório: \" + soma);",
+   "System.out.println(\"Média: \" + soma/tamanho);",
+   "System.out.println(\"Conteúdo da lista:\");"
+  ],
+  "ln": [
+   13,
+   21
+  ],
+  "pont": 2.064811960222816
+ },
+ {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "java/Aula5/Carro.java",
+  "ini": 17,
+  "tam": 4,
+  "alvo": 1,
+  "linhas": [
+   "class Motor {",
+   "    String tipo;",
+   "    int potencia;",
+   "}"
+  ],
+  "ln": [
+   23,
+   26
+  ],
+  "pont": 2.063297353650099
+ },
+ {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "java/Aula2/ImprimeArgs.java",
+  "ini": 2,
+  "tam": 5,
+  "alvo": 2,
+  "linhas": [
+   "public static void main(String[] args) {",
+   "    for (int i = 0; i < args.length; i++) {",
+   "        System.out.println(args[i]);",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   4,
+   8
+  ],
+  "pont": 2.04460888383841
+ },
+ {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "java/Aula4/Matriz1.java",
+  "ini": 42,
+  "tam": 4,
+  "alvo": 1,
+  "linhas": [
+   "for (int j = 0; j < matrizC.length; j++) {",
+   "    System.out.print(matrizC[i][j] + \" \");",
+   "}",
+   "System.out.println();"
+  ],
+  "ln": [
+   50,
+   53
+  ],
+  "pont": 2.0381394385784777
  },
  {
   "lang": "java",
@@ -852,99 +1683,49 @@
  },
  {
   "lang": "java",
-  "fase": "medio",
-  "arquivo": "java/Aula5/Operacao.java",
-  "ini": 14,
-  "tam": 9,
-  "alvo": 4,
+  "fase": "dificil",
+  "arquivo": "java/Aula3/Nuuumeros.java",
+  "ini": 0,
+  "tam": 11,
+  "alvo": 7,
   "linhas": [
-   "public void depositar(double valor) {",
-   "    this.saldo += valor;",
-   "}",
-   "public String getNomeCliente() {",
-   "    return this.nomeCliente;",
-   "}",
-   "public double getSaldo() {",
-   "    return this.saldo;",
+   "package Aula3;",
+   "import javax.swing.JOptionPane;",
+   "public class Nuuumeros {",
+   "    public static void main(String[] args) {",
+   "        int i = 150;",
+   "        do {",
+   "            JOptionPane.showMessageDialog(null, i);",
+   "            i++;",
+   "        } while (i <= 300);",
+   "    }",
    "}"
   ],
   "ln": [
-   15,
-   23
+   1,
+   13
   ],
-  "pont": 1.6822177358862374
+  "pont": 2.0208578798308707
  },
  {
   "lang": "java",
-  "fase": "medio",
-  "arquivo": "java/Aula3/Idade.java",
+  "fase": "facil",
+  "arquivo": "java/Aula3/Nuuumeros.java",
   "ini": 4,
-  "tam": 8,
-  "alvo": 6,
+  "tam": 5,
+  "alvo": 3,
   "linhas": [
-   "int idade;",
-   "try (Scanner teclado = new Scanner(System.in)) {",
-   "    System.out.print(\"Digite sua idade: \");",
-   "    idade = teclado.nextInt();",
-   "}",
-   "if (idade <= 12) {",
-   "    System.out.println(\"Criança\");",
-   "}"
+   "int i = 150;",
+   "do {",
+   "    JOptionPane.showMessageDialog(null, i);",
+   "    i++;",
+   "} while (i <= 300);"
   ],
   "ln": [
-   8,
-   15
+   7,
+   11
   ],
-  "pont": 1.638515797231177
- },
- {
-  "lang": "java",
-  "fase": "medio",
-  "arquivo": "java/Aula5/Duke.java",
-  "ini": 39,
-  "tam": 10,
-  "alvo": 6,
-  "linhas": [
-   "c1.nomeCliente = \"Duke\";",
-   "c1.saldo = 227.0;",
-   "ContaBancaria c2 = new ContaBancaria();",
-   "c2.nomeCliente = \"Duke\";",
-   "c2.saldo = 100.0;",
-   "if (c1 == c2) {",
-   "    System.out.println(\"As contas são iguais\");",
-   "} else {",
-   "    System.out.println(\"As contas são diferentes\");",
-   "}"
-  ],
-  "ln": [
-   43,
-   53
-  ],
-  "pont": 1.2876405840204108
- },
- {
-  "lang": "java",
-  "fase": "medio",
-  "arquivo": "java/Aula5/Programa1a.java",
-  "ini": 4,
-  "tam": 9,
-  "alvo": 2,
-  "linhas": [
-   "String nomeCliente;",
-   "double saldo;",
-   "double limite;",
-   "public void sacar (double valor) {",
-   "    this.saldo -= valor;",
-   "}",
-   "public void depositar (double valor) {",
-   "    this.saldo += valor;",
-   "}"
-  ],
-  "ln": [
-   6,
-   15
-  ],
-  "pont": 1.1691693352897932
+  "pont": 2.019216820587472
  },
  {
   "lang": "java",
@@ -964,6 +1745,171 @@
    45
   ],
   "pont": 2.0182725741698184
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula4/Mat.java",
+  "ini": 8,
+  "tam": 8,
+  "alvo": 1,
+  "linhas": [
+   "int [] lista = new int[tamanho];",
+   "int soma = 0;",
+   "for (int i = 0; i < lista.length; i++) {",
+   "    System.out.printf(\"Digite o %d número: \", i+1);",
+   "    lista[i] = teclado.nextInt();",
+   "    soma += lista[i];",
+   "}",
+   "System.out.println(\"Tamanho da lista: \" + tamanho);"
+  ],
+  "ln": [
+   11,
+   18
+  ],
+  "pont": 2.007527464481549
+ },
+ {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "java/Aula5/Programa1a.java",
+  "ini": 5,
+  "tam": 5,
+  "alvo": 1,
+  "linhas": [
+   "double saldo;",
+   "double limite;",
+   "public void sacar (double valor) {",
+   "    this.saldo -= valor;",
+   "}"
+  ],
+  "ln": [
+   7,
+   12
+  ],
+  "pont": 2.0043532864217584
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula4/Mat.java",
+  "ini": 8,
+  "tam": 9,
+  "alvo": 3,
+  "linhas": [
+   "int [] lista = new int[tamanho];",
+   "int soma = 0;",
+   "for (int i = 0; i < lista.length; i++) {",
+   "    System.out.printf(\"Digite o %d número: \", i+1);",
+   "    lista[i] = teclado.nextInt();",
+   "    soma += lista[i];",
+   "}",
+   "System.out.println(\"Tamanho da lista: \" + tamanho);",
+   "System.out.println(\"Somatório: \" + soma);"
+  ],
+  "ln": [
+   11,
+   19
+  ],
+  "pont": 1.9752956458141013
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula3/DoWhile.java",
+  "ini": 0,
+  "tam": 11,
+  "alvo": 1,
+  "linhas": [
+   "package Aula3;",
+   "import javax.swing.JOptionPane;",
+   "public class DoWhile {",
+   "    public static void main(String[] args) {",
+   "        int i = -1;",
+   "        do {",
+   "            JOptionPane.showMessageDialog(null, i);",
+   "            i--;",
+   "        } while (i >= -10);",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   1,
+   13
+  ],
+  "pont": 1.973980770301175
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula4/Mat.java",
+  "ini": 9,
+  "tam": 10,
+  "alvo": 4,
+  "linhas": [
+   "int soma = 0;",
+   "for (int i = 0; i < lista.length; i++) {",
+   "    System.out.printf(\"Digite o %d número: \", i+1);",
+   "    lista[i] = teclado.nextInt();",
+   "    soma += lista[i];",
+   "}",
+   "System.out.println(\"Tamanho da lista: \" + tamanho);",
+   "System.out.println(\"Somatório: \" + soma);",
+   "System.out.println(\"Média: \" + soma/tamanho);",
+   "System.out.println(\"Conteúdo da lista:\");"
+  ],
+  "ln": [
+   12,
+   21
+  ],
+  "pont": 1.957845143996039
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula4/Mat.java",
+  "ini": 9,
+  "tam": 9,
+  "alvo": 4,
+  "linhas": [
+   "int soma = 0;",
+   "for (int i = 0; i < lista.length; i++) {",
+   "    System.out.printf(\"Digite o %d número: \", i+1);",
+   "    lista[i] = teclado.nextInt();",
+   "    soma += lista[i];",
+   "}",
+   "System.out.println(\"Tamanho da lista: \" + tamanho);",
+   "System.out.println(\"Somatório: \" + soma);",
+   "System.out.println(\"Média: \" + soma/tamanho);"
+  ],
+  "ln": [
+   12,
+   20
+  ],
+  "pont": 1.9573335682552204
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula4/Mat.java",
+  "ini": 10,
+  "tam": 8,
+  "alvo": 7,
+  "linhas": [
+   "for (int i = 0; i < lista.length; i++) {",
+   "    System.out.printf(\"Digite o %d número: \", i+1);",
+   "    lista[i] = teclado.nextInt();",
+   "    soma += lista[i];",
+   "}",
+   "System.out.println(\"Tamanho da lista: \" + tamanho);",
+   "System.out.println(\"Somatório: \" + soma);",
+   "System.out.println(\"Média: \" + soma/tamanho);"
+  ],
+  "ln": [
+   13,
+   20
+  ],
+  "pont": 1.9165509088775887
  },
  {
   "lang": "java",
@@ -1006,6 +1952,413 @@
  },
  {
   "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula3/Naturais.java",
+  "ini": 0,
+  "tam": 11,
+  "alvo": 4,
+  "linhas": [
+   "package Aula3;",
+   "import javax.swing.JOptionPane;",
+   "public class Naturais {",
+   "    public static void main(String[] args) {",
+   "        int i = 1;",
+   "        do {",
+   "            JOptionPane.showMessageDialog(null, i);",
+   "            i++;",
+   "        } while (i <= 20);",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   1,
+   13
+  ],
+  "pont": 1.8337574080227488
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula5/Duke.java",
+  "ini": 8,
+  "tam": 11,
+  "alvo": 2,
+  "linhas": [
+   "public boolean sacar(double valor) {",
+   "    if (valor <= (this.saldo + this.limite)) {",
+   "        this.saldo -= valor;",
+   "        return true;",
+   "    } else {",
+   "        return false;",
+   "    }",
+   "}",
+   "public void depositar(double valor) {",
+   "    this.saldo += valor;",
+   "}"
+  ],
+  "ln": [
+   11,
+   21
+  ],
+  "pont": 1.8091720206740955
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula4/Matriz2.java",
+  "ini": 4,
+  "tam": 11,
+  "alvo": 7,
+  "linhas": [
+   "for (int i = 0; i < matriz.length; i++) {",
+   "    for (int j = 0; j < matriz.length; j++) {",
+   "        matriz[i][j] = i * j;",
+   "    }",
+   "}",
+   "for (int i = 0; i < matriz.length; i++) {",
+   "    for (int j = 0; j < matriz.length; j++) {",
+   "        System.out.print(matriz[i][j] + \" \");",
+   "    }",
+   "    System.out.println();",
+   "}"
+  ],
+  "ln": [
+   6,
+   17
+  ],
+  "pont": 1.7687061881783692
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula5/Operacao.java",
+  "ini": 5,
+  "tam": 12,
+  "alvo": 6,
+  "linhas": [
+   "double limite;",
+   "public boolean sacar(double valor) {",
+   "    if (valor <= (this.saldo + this.limite)) {",
+   "        this.saldo -= valor;",
+   "        return true;",
+   "    } else {",
+   "        return false;",
+   "    }",
+   "}",
+   "public void depositar(double valor) {",
+   "    this.saldo += valor;",
+   "}"
+  ],
+  "ln": [
+   6,
+   17
+  ],
+  "pont": 1.7686246816989364
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula5/Operacao.java",
+  "ini": 6,
+  "tam": 11,
+  "alvo": 2,
+  "linhas": [
+   "public boolean sacar(double valor) {",
+   "    if (valor <= (this.saldo + this.limite)) {",
+   "        this.saldo -= valor;",
+   "        return true;",
+   "    } else {",
+   "        return false;",
+   "    }",
+   "}",
+   "public void depositar(double valor) {",
+   "    this.saldo += valor;",
+   "}"
+  ],
+  "ln": [
+   7,
+   17
+  ],
+  "pont": 1.7673606910528696
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula5/Duke.java",
+  "ini": 6,
+  "tam": 12,
+  "alvo": 3,
+  "linhas": [
+   "double limite;",
+   "public boolean sacar(double valor) {",
+   "    if (valor <= (this.saldo + this.limite)) {",
+   "        this.saldo -= valor;",
+   "        return true;",
+   "    } else {",
+   "        return false;",
+   "    }",
+   "}",
+   "public void depositar(double valor) {",
+   "    this.saldo += valor;",
+   "}"
+  ],
+  "ln": [
+   9,
+   20
+  ],
+  "pont": 1.7195909728631271
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula5/Operacao.java",
+  "ini": 14,
+  "tam": 9,
+  "alvo": 4,
+  "linhas": [
+   "public void depositar(double valor) {",
+   "    this.saldo += valor;",
+   "}",
+   "public String getNomeCliente() {",
+   "    return this.nomeCliente;",
+   "}",
+   "public double getSaldo() {",
+   "    return this.saldo;",
+   "}"
+  ],
+  "ln": [
+   15,
+   23
+  ],
+  "pont": 1.6822177358862374
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula5/TesteClienteConta.java",
+  "ini": 8,
+  "tam": 11,
+  "alvo": 9,
+  "linhas": [
+   "public boolean sacar(double valor) {",
+   "    if (valor <= (this.saldo + this.limite)) {",
+   "        this.saldo -= valor;",
+   "        return true;",
+   "    } else {",
+   "        return false;",
+   "    }",
+   "}",
+   "public void depositar(double valor) {",
+   "    this.saldo += valor;",
+   "}"
+  ],
+  "ln": [
+   11,
+   21
+  ],
+  "pont": 1.6729233776533943
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula3/Idade.java",
+  "ini": 9,
+  "tam": 9,
+  "alvo": 1,
+  "linhas": [
+   "if (idade <= 12) {",
+   "    System.out.println(\"Criança\");",
+   "}",
+   "else if (idade <= 17) {",
+   "    System.out.println(\"Adolescente\");",
+   "}",
+   "else {",
+   "    System.out.println(\"Adulto\");",
+   "}"
+  ],
+  "ln": [
+   13,
+   21
+  ],
+  "pont": 1.6636305656784574
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula3/Idade.java",
+  "ini": 4,
+  "tam": 8,
+  "alvo": 6,
+  "linhas": [
+   "int idade;",
+   "try (Scanner teclado = new Scanner(System.in)) {",
+   "    System.out.print(\"Digite sua idade: \");",
+   "    idade = teclado.nextInt();",
+   "}",
+   "if (idade <= 12) {",
+   "    System.out.println(\"Criança\");",
+   "}"
+  ],
+  "ln": [
+   8,
+   15
+  ],
+  "pont": 1.638515797231177
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula5/Operacao.java",
+  "ini": 14,
+  "tam": 9,
+  "alvo": 1,
+  "linhas": [
+   "public void depositar(double valor) {",
+   "    this.saldo += valor;",
+   "}",
+   "public String getNomeCliente() {",
+   "    return this.nomeCliente;",
+   "}",
+   "public double getSaldo() {",
+   "    return this.saldo;",
+   "}"
+  ],
+  "ln": [
+   15,
+   23
+  ],
+  "pont": 1.6298316846257919
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Laço.java",
+  "ini": 0,
+  "tam": 11,
+  "alvo": 4,
+  "linhas": [
+   "public class Laço {",
+   "    public static void main (String args[]) {",
+   "        int [] idades = new int[10];",
+   "        for (int i = 0; i < 10; i++) {",
+   "            idades[i] = i * 10;",
+   "        }",
+   "        for (int x: idades) {",
+   "            System.out.println(x);",
+   "        }",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   1,
+   11
+  ],
+  "pont": 1.6193480285221247
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula5/TesteClienteConta.java",
+  "ini": 5,
+  "tam": 11,
+  "alvo": 6,
+  "linhas": [
+   "double saldo;",
+   "double limite;",
+   "Cliente titular;",
+   "public boolean sacar(double valor) {",
+   "    if (valor <= (this.saldo + this.limite)) {",
+   "        this.saldo -= valor;",
+   "        return true;",
+   "    } else {",
+   "        return false;",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   8,
+   18
+  ],
+  "pont": 1.618182675716993
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula5/Duke.java",
+  "ini": 5,
+  "tam": 11,
+  "alvo": 8,
+  "linhas": [
+   "double saldo;",
+   "double limite;",
+   "Cliente titular;",
+   "public boolean sacar(double valor) {",
+   "    if (valor <= (this.saldo + this.limite)) {",
+   "        this.saldo -= valor;",
+   "        return true;",
+   "    } else {",
+   "        return false;",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   8,
+   18
+  ],
+  "pont": 1.5928725378389568
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula5/Programa1a.java",
+  "ini": 5,
+  "tam": 8,
+  "alvo": 1,
+  "linhas": [
+   "double saldo;",
+   "double limite;",
+   "public void sacar (double valor) {",
+   "    this.saldo -= valor;",
+   "}",
+   "public void depositar (double valor) {",
+   "    this.saldo += valor;",
+   "}"
+  ],
+  "ln": [
+   7,
+   15
+  ],
+  "pont": 1.5782487453794396
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula4/Matriz1.java",
+  "ini": 21,
+  "tam": 12,
+  "alvo": 2,
+  "linhas": [
+   "for (int i = 0; i < matrizC.length; i++) {",
+   "    for (int j = 0; j < matrizC.length; j++) {",
+   "        matrizC[i][j] = matrizA[i][j] + matrizB[i][j];",
+   "    }",
+   "}",
+   "System.out.println(\"Matriz A:\");",
+   "for (int i = 0; i < matrizA.length; i++) {",
+   "    for (int j = 0; j < matrizA.length; j++) {",
+   "        System.out.print(matrizA[i][j] + \" \");",
+   "    }",
+   "    System.out.println();",
+   "}"
+  ],
+  "ln": [
+   26,
+   38
+  ],
+  "pont": 1.5771710303059265
+ },
+ {
+  "lang": "java",
   "fase": "facil",
   "arquivo": "java/Aula2/Vasco.java",
   "ini": 1,
@@ -1023,6 +2376,125 @@
    7
   ],
   "pont": 1.460325815813381
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula5/Duke.java",
+  "ini": 4,
+  "tam": 12,
+  "alvo": 9,
+  "linhas": [
+   "String nomeCliente;",
+   "double saldo;",
+   "double limite;",
+   "Cliente titular;",
+   "public boolean sacar(double valor) {",
+   "    if (valor <= (this.saldo + this.limite)) {",
+   "        this.saldo -= valor;",
+   "        return true;",
+   "    } else {",
+   "        return false;",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   7,
+   18
+  ],
+  "pont": 1.392435114363927
+ },
+ {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "java/Aula5/Programa1a.java",
+  "ini": 27,
+  "tam": 5,
+  "alvo": 4,
+  "linhas": [
+   "ler.nextLine();",
+   "System.out.println(\"\\nConta 02\\nNome: \");",
+   "conta2.nomeCliente = ler.nextLine();",
+   "System.out.println(\"Saldo: \");",
+   "conta2.saldo = ler.nextDouble();"
+  ],
+  "ln": [
+   32,
+   36
+  ],
+  "pont": 1.356405111583466
+ },
+ {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "java/Aula5/SacaEDeposita.java",
+  "ini": 19,
+  "tam": 4,
+  "alvo": 3,
+  "linhas": [
+   "ContaBancaria conta1 = new ContaBancaria();",
+   "conta1.saldo = 1000.00;",
+   "System.out.println(\"Saldo: \" + conta1.saldo);",
+   "int escolha;"
+  ],
+  "ln": [
+   23,
+   26
+  ],
+  "pont": 1.3454115517837568
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula3/While.java",
+  "ini": 1,
+  "tam": 12,
+  "alvo": 6,
+  "linhas": [
+   "import javax.swing.JOptionPane;",
+   "public class While {",
+   "    public static void main (String[] args) {",
+   "        int i = 1;",
+   "        while (i <= 15) {",
+   "            if (i % 2 == 0) {",
+   "                JOptionPane.showMessageDialog(null, i);",
+   "            }",
+   "            i++;",
+   "        }",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   3,
+   15
+  ],
+  "pont": 1.3417890735749634
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula5/Operacao.java",
+  "ini": 3,
+  "tam": 11,
+  "alvo": 1,
+  "linhas": [
+   "String nomeCliente;",
+   "double saldo;",
+   "double limite;",
+   "public boolean sacar(double valor) {",
+   "    if (valor <= (this.saldo + this.limite)) {",
+   "        this.saldo -= valor;",
+   "        return true;",
+   "    } else {",
+   "        return false;",
+   "    }",
+   "}"
+  ],
+  "ln": [
+   4,
+   14
+  ],
+  "pont": 1.3384185450997546
  },
  {
   "lang": "java",
@@ -1045,6 +2517,82 @@
  },
  {
   "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula5/Duke.java",
+  "ini": 39,
+  "tam": 10,
+  "alvo": 6,
+  "linhas": [
+   "c1.nomeCliente = \"Duke\";",
+   "c1.saldo = 227.0;",
+   "ContaBancaria c2 = new ContaBancaria();",
+   "c2.nomeCliente = \"Duke\";",
+   "c2.saldo = 100.0;",
+   "if (c1 == c2) {",
+   "    System.out.println(\"As contas são iguais\");",
+   "} else {",
+   "    System.out.println(\"As contas são diferentes\");",
+   "}"
+  ],
+  "ln": [
+   43,
+   53
+  ],
+  "pont": 1.2876405840204108
+ },
+ {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula5/TesteClienteConta.java",
+  "ini": 7,
+  "tam": 12,
+  "alvo": 10,
+  "linhas": [
+   "Cliente titular;",
+   "public boolean sacar(double valor) {",
+   "    if (valor <= (this.saldo + this.limite)) {",
+   "        this.saldo -= valor;",
+   "        return true;",
+   "    } else {",
+   "        return false;",
+   "    }",
+   "}",
+   "public void depositar(double valor) {",
+   "    this.saldo += valor;",
+   "}"
+  ],
+  "ln": [
+   10,
+   21
+  ],
+  "pont": 1.2253347159903596
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula5/Duke.java",
+  "ini": 46,
+  "tam": 9,
+  "alvo": 2,
+  "linhas": [
+   "c1.saldo = 227.0;",
+   "ContaBancaria c2 = new ContaBancaria();",
+   "c2.nomeCliente = \"Duke\";",
+   "c2.saldo = 100.0;",
+   "if (c1 == c2) {",
+   "    System.out.println(\"As contas são iguais\");",
+   "} else {",
+   "    System.out.println(\"As contas são diferentes\");",
+   "}"
+  ],
+  "ln": [
+   51,
+   60
+  ],
+  "pont": 1.215660118561443
+ },
+ {
+  "lang": "java",
   "fase": "facil",
   "arquivo": "java/Aula5/Operacao.java",
   "ini": 8,
@@ -1061,6 +2609,92 @@
    12
   ],
   "pont": 1.2127498949583497
+ },
+ {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "java/Aula5/TesteClienteConta.java",
+  "ini": 10,
+  "tam": 4,
+  "alvo": 3,
+  "linhas": [
+   "    this.saldo -= valor;",
+   "    return true;",
+   "} else {",
+   "    return false;"
+  ],
+  "ln": [
+   13,
+   16
+  ],
+  "pont": 1.2105387554307814
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula5/Programa1a.java",
+  "ini": 4,
+  "tam": 9,
+  "alvo": 2,
+  "linhas": [
+   "String nomeCliente;",
+   "double saldo;",
+   "double limite;",
+   "public void sacar (double valor) {",
+   "    this.saldo -= valor;",
+   "}",
+   "public void depositar (double valor) {",
+   "    this.saldo += valor;",
+   "}"
+  ],
+  "ln": [
+   6,
+   15
+  ],
+  "pont": 1.1691693352897932
+ },
+ {
+  "lang": "java",
+  "fase": "medio",
+  "arquivo": "java/Aula5/Carro.java",
+  "ini": 7,
+  "tam": 9,
+  "alvo": 1,
+  "linhas": [
+   "public void ligar() {",
+   "    System.out.println(\"O carro está ligado\");",
+   "}",
+   "public void acelerar(double quantidade) {",
+   "    this.velocidadeAtual += quantidade;",
+   "}",
+   "public void frear(double quantidade) {",
+   "    System.out.println(\"O carro está freando\");",
+   "}"
+  ],
+  "ln": [
+   10,
+   20
+  ],
+  "pont": 1.1513888255387221
+ },
+ {
+  "lang": "java",
+  "fase": "facil",
+  "arquivo": "java/Aula5/Duke.java",
+  "ini": 4,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "String nomeCliente;",
+   "double saldo;",
+   "double limite;",
+   "Cliente titular;"
+  ],
+  "ln": [
+   7,
+   10
+  ],
+  "pont": 1.0893418406684559
  },
  {
   "lang": "java",
@@ -1120,6 +2754,33 @@
   "pont": 0.9414125115390968
  },
  {
+  "lang": "java",
+  "fase": "dificil",
+  "arquivo": "java/Aula4/Matriz2.java",
+  "ini": 3,
+  "tam": 12,
+  "alvo": 8,
+  "linhas": [
+   "double[][] matriz = new double[4][4];",
+   "for (int i = 0; i < matriz.length; i++) {",
+   "    for (int j = 0; j < matriz.length; j++) {",
+   "        matriz[i][j] = i * j;",
+   "    }",
+   "}",
+   "for (int i = 0; i < matriz.length; i++) {",
+   "    for (int j = 0; j < matriz.length; j++) {",
+   "        System.out.print(matriz[i][j] + \" \");",
+   "    }",
+   "    System.out.println();",
+   "}"
+  ],
+  "ln": [
+   5,
+   17
+  ],
+  "pont": 0.8282394497974827
+ },
+ {
   "lang": "py",
   "fase": "dificil",
   "arquivo": "py/bla/pesquisa_binária.py",
@@ -1152,6 +2813,32 @@
   "arquivo": "py/I/Exercicios/Funções/7.py",
   "ini": 0,
   "tam": 11,
+  "alvo": 2,
+  "linhas": [
+   "def fibonacci (n):",
+   "    resultado = []",
+   "    for i in range(0, n+1):",
+   "        if i == 0:",
+   "            resultado.append(0)",
+   "        elif i == 1:",
+   "            resultado.append(1)",
+   "        else:",
+   "            resultado.append(resultado[i-1] + resultado[i-2])",
+   "    return resultado",
+   "n = int(input(\"Digite um número: \"))"
+  ],
+  "ln": [
+   1,
+   13
+  ],
+  "pont": 2.519283450935856
+ },
+ {
+  "lang": "py",
+  "fase": "dificil",
+  "arquivo": "py/I/Exercicios/Funções/7.py",
+  "ini": 0,
+  "tam": 11,
   "alvo": 5,
   "linhas": [
    "def fibonacci (n):",
@@ -1171,6 +2858,201 @@
    13
   ],
   "pont": 2.486061914762886
+ },
+ {
+  "lang": "py",
+  "fase": "medio",
+  "arquivo": "py/PA/binaria2.py",
+  "ini": 2,
+  "tam": 10,
+  "alvo": 4,
+  "linhas": [
+   "def busca_binaria(lista, alvo):",
+   "    global comparacoes",
+   "    inicio = 0",
+   "    fim = len(lista) - 1",
+   "    while inicio <= fim:",
+   "        meio = (inicio + fim) // 2",
+   "        comparacoes += 1",
+   "        if lista[meio] == alvo:",
+   "            print(f\"{alvo} está no indice {meio}\")",
+   "            return"
+  ],
+  "ln": [
+   5,
+   14
+  ],
+  "pont": 2.426109457856197
+ },
+ {
+  "lang": "py",
+  "fase": "medio",
+  "arquivo": "py/PA/binaria2.py",
+  "ini": 2,
+  "tam": 9,
+  "alvo": 7,
+  "linhas": [
+   "def busca_binaria(lista, alvo):",
+   "    global comparacoes",
+   "    inicio = 0",
+   "    fim = len(lista) - 1",
+   "    while inicio <= fim:",
+   "        meio = (inicio + fim) // 2",
+   "        comparacoes += 1",
+   "        if lista[meio] == alvo:",
+   "            print(f\"{alvo} está no indice {meio}\")"
+  ],
+  "ln": [
+   5,
+   13
+  ],
+  "pont": 2.3988223395973494
+ },
+ {
+  "lang": "py",
+  "fase": "medio",
+  "arquivo": "py/PA/seleção.py",
+  "ini": 1,
+  "tam": 9,
+  "alvo": 5,
+  "linhas": [
+   "def selection_sort (lista):",
+   "    global comparacoes",
+   "    n = len(lista)",
+   "    for i in range(n - 1):",
+   "        menor = i",
+   "        for j in range(i + 1, n):",
+   "            comparacoes += 1",
+   "            if lista[j] < lista[menor]:",
+   "                menor = j"
+  ],
+  "ln": [
+   3,
+   11
+  ],
+  "pont": 2.3887817690088626
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/PA/quiiick.py",
+  "ini": 4,
+  "tam": 5,
+  "alvo": 1,
+  "linhas": [
+   "def quick_sort(lista, inicio, fim):",
+   "    if inicio > fim:",
+   "        return",
+   "    anterior = inicio",
+   "    posterior = fim"
+  ],
+  "ln": [
+   6,
+   10
+  ],
+  "pont": 2.376955290050643
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/PA/quiiick.py",
+  "ini": 4,
+  "tam": 4,
+  "alvo": 1,
+  "linhas": [
+   "def quick_sort(lista, inicio, fim):",
+   "    if inicio > fim:",
+   "        return",
+   "    anterior = inicio"
+  ],
+  "ln": [
+   6,
+   9
+  ],
+  "pont": 2.342424262592432
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/II/1° NPC/carro.py",
+  "ini": 0,
+  "tam": 4,
+  "alvo": 1,
+  "linhas": [
+   "class Carro:",
+   "    def __init__ (self, marca, modelo, ano):",
+   "        self.marca = marca",
+   "        self.modelo = modelo"
+  ],
+  "ln": [
+   1,
+   4
+  ],
+  "pont": 2.336402799338568
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/II/1° NPC/biblioteca.py",
+  "ini": 18,
+  "tam": 4,
+  "alvo": 1,
+  "linhas": [
+   "class Usuario:",
+   "    def __init__(self, nome, id_usuario):",
+   "        self.nome = nome",
+   "        self.id_usuario = id_usuario"
+  ],
+  "ln": [
+   25,
+   28
+  ],
+  "pont": 2.319999891696603
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/PA/seleção.py",
+  "ini": 1,
+  "tam": 5,
+  "alvo": 3,
+  "linhas": [
+   "def selection_sort (lista):",
+   "    global comparacoes",
+   "    n = len(lista)",
+   "    for i in range(n - 1):",
+   "        menor = i"
+  ],
+  "ln": [
+   3,
+   7
+  ],
+  "pont": 2.3195634997408225
+ },
+ {
+  "lang": "py",
+  "fase": "medio",
+  "arquivo": "py/bla/pesquisa_binária.py",
+  "ini": 0,
+  "tam": 10,
+  "alvo": 1,
+  "linhas": [
+   "class Pesquisa:",
+   "    def __init__(self, lista, item):",
+   "        self.lista = lista",
+   "        self.item = item",
+   "    def pesquisa_binaria (self):",
+   "        baixo = 0",
+   "        alto = len(self.lista) - 1",
+   "        while baixo <= alto:",
+   "            meio = (baixo + alto) // 2",
+   "            chute = self.lista[meio]"
+  ],
+  "ln": [
+   1,
+   12
+  ],
+  "pont": 2.319033713863548
  },
  {
   "lang": "py",
@@ -1201,6 +3083,69 @@
  },
  {
   "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/II/revisão3.py",
+  "ini": 8,
+  "tam": 5,
+  "alvo": 1,
+  "linhas": [
+   "for aluno in alunos:",
+   "    if aluno[\"idade\"] >= 18:",
+   "        maior.append(aluno[\"idade\"])",
+   "    else:",
+   "        menor.append(aluno[\"idade\"])"
+  ],
+  "ln": [
+   11,
+   15
+  ],
+  "pont": 2.3130776259076105
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/I/Exercicios/Revisão 1/maior_menor.py",
+  "ini": 2,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "for i in range (1, 3):",
+   "    num = int(input(\"Digite um número: \"))",
+   "    if num > maior:",
+   "        maior = num"
+  ],
+  "ln": [
+   4,
+   7
+  ],
+  "pont": 2.3027340119607356
+ },
+ {
+  "lang": "py",
+  "fase": "medio",
+  "arquivo": "py/II/1° NPC/carrinho.py",
+  "ini": 0,
+  "tam": 9,
+  "alvo": 1,
+  "linhas": [
+   "class Carrinho:",
+   "    def __init__(self):",
+   "        self.itens = []",
+   "    def adicionar_item (self, item):",
+   "        self.itens.append(item)",
+   "        print (f\"{self.itens}\\n\")",
+   "carrin = Carrinho()",
+   "carrin.adicionar_item(\"Sabão em pó\")",
+   "carrin.adicionar_item(\"Óleo\")"
+  ],
+  "ln": [
+   1,
+   11
+  ],
+  "pont": 2.2861383813346587
+ },
+ {
+  "lang": "py",
   "fase": "dificil",
   "arquivo": "py/II/1° NPC/biblioteca2.py",
   "ini": 13,
@@ -1224,6 +3169,188 @@
    29
   ],
   "pont": 2.28458369552826
+ },
+ {
+  "lang": "py",
+  "fase": "medio",
+  "arquivo": "py/PA/detran.py",
+  "ini": 26,
+  "tam": 8,
+  "alvo": 6,
+  "linhas": [
+   "def placa_para_numero(placa):",
+   "    placa = placa.upper()",
+   "    n = 0",
+   "    for caracter in placa:",
+   "        if caracter.isdigit():",
+   "            n = n * 10 + int(caracter)",
+   "        else:",
+   "            n = n * 26 + (ord(caracter) - 65)"
+  ],
+  "ln": [
+   34,
+   41
+  ],
+  "pont": 2.2803071149133523
+ },
+ {
+  "lang": "py",
+  "fase": "dificil",
+  "arquivo": "py/PA/linear2.py",
+  "ini": 179,
+  "tam": 12,
+  "alvo": 10,
+  "linhas": [
+   "if inicio > fim:",
+   "    return",
+   "anterior = inicio",
+   "posterior = fim",
+   "pivo = lista[inicio]",
+   "while anterior < posterior:",
+   "    while anterior < posterior:",
+   "        comparacoes += 1",
+   "        if lista[posterior] > pivo:",
+   "            posterior = posterior - 1",
+   "        else:",
+   "            break"
+  ],
+  "ln": [
+   221,
+   234
+  ],
+  "pont": 2.270745279734564
+ },
+ {
+  "lang": "py",
+  "fase": "dificil",
+  "arquivo": "py/I/Exercicios/Listas/1.py",
+  "ini": 4,
+  "tam": 12,
+  "alvo": 10,
+  "linhas": [
+   "for i in range (0, 30):",
+   "    print (f\"Aluno {i+1}:\")",
+   "    idade = int(input(\"Idade: \"))",
+   "    idade_vetor.append(idade)",
+   "    altura = float(input(\"Altura: \"))",
+   "    altura_vetor.append(altura)",
+   "    soma += altura_vetor[i]",
+   "media = soma / 30",
+   "for i in range (0, 30):",
+   "    if idade[i] > 13:",
+   "        if altura[i] < media:",
+   "            contador += 1"
+  ],
+  "ln": [
+   6,
+   19
+  ],
+  "pont": 2.270499522020243
+ },
+ {
+  "lang": "py",
+  "fase": "medio",
+  "arquivo": "py/PA/teste.py",
+  "ini": 0,
+  "tam": 9,
+  "alvo": 6,
+  "linhas": [
+   "def regressiva(i):",
+   "    print (f\"{i} \")",
+   "    if i <= 1:",
+   "        return print (\"Boom\")",
+   "    else:",
+   "        regressiva(i-1)",
+   "def main():",
+   "    contador = 10",
+   "    regressiva(contador)"
+  ],
+  "ln": [
+   1,
+   10
+  ],
+  "pont": 2.2677336915432833
+ },
+ {
+  "lang": "py",
+  "fase": "medio",
+  "arquivo": "py/II/1° NPC/biblioteca.py",
+  "ini": 18,
+  "tam": 8,
+  "alvo": 5,
+  "linhas": [
+   "class Usuario:",
+   "    def __init__(self, nome, id_usuario):",
+   "        self.nome = nome",
+   "        self.id_usuario = id_usuario",
+   "        self.livros_emprestados = []",
+   "    def pegar_emprestado(self, livro):",
+   "        if livro.emprestar():",
+   "            self.livros_emprestados.append(livro)"
+  ],
+  "ln": [
+   25,
+   33
+  ],
+  "pont": 2.2663615296937256
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/PA/quick.py",
+  "ini": 1,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "if len(lista) < 2:",
+   "    return print (lista)",
+   "else:",
+   "    pivo = lista[0]"
+  ],
+  "ln": [
+   2,
+   5
+  ],
+  "pont": 2.2312174481450273
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/PA/interpolação.py",
+  "ini": 7,
+  "tam": 5,
+  "alvo": 3,
+  "linhas": [
+   "if lista[posição_estimada] == alvo:",
+   "    print(f\"{alvo} está no indice {meio}\")",
+   "    return",
+   "elif lista[posição_estimada] > alvo:",
+   "    fim = meio - 1"
+  ],
+  "ln": [
+   9,
+   13
+  ],
+  "pont": 2.1703071149133524
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/II/1° NPC/1.py",
+  "ini": 16,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "def verificar_viabilidade(self):",
+   "    capacidade = self.capacidade_total()",
+   "    if (capacidade >= self.pontos):",
+   "        print (\"Projeto Viável\")"
+  ],
+  "ln": [
+   21,
+   25
+  ],
+  "pont": 2.1591984285663806
  },
  {
   "lang": "py",
@@ -1254,6 +3381,83 @@
  {
   "lang": "py",
   "fase": "dificil",
+  "arquivo": "py/PA/binaria2.py",
+  "ini": 2,
+  "tam": 12,
+  "alvo": 7,
+  "linhas": [
+   "def busca_binaria(lista, alvo):",
+   "    global comparacoes",
+   "    inicio = 0",
+   "    fim = len(lista) - 1",
+   "    while inicio <= fim:",
+   "        meio = (inicio + fim) // 2",
+   "        comparacoes += 1",
+   "        if lista[meio] == alvo:",
+   "            print(f\"{alvo} está no indice {meio}\")",
+   "            return",
+   "        elif lista[meio] > alvo:",
+   "            fim = meio - 1"
+  ],
+  "ln": [
+   5,
+   16
+  ],
+  "pont": 2.129975799107879
+ },
+ {
+  "lang": "py",
+  "fase": "medio",
+  "arquivo": "py/PA/detran.py",
+  "ini": 26,
+  "tam": 8,
+  "alvo": 3,
+  "linhas": [
+   "def placa_para_numero(placa):",
+   "    placa = placa.upper()",
+   "    n = 0",
+   "    for caracter in placa:",
+   "        if caracter.isdigit():",
+   "            n = n * 10 + int(caracter)",
+   "        else:",
+   "            n = n * 26 + (ord(caracter) - 65)"
+  ],
+  "ln": [
+   34,
+   41
+  ],
+  "pont": 2.1296497446521747
+ },
+ {
+  "lang": "py",
+  "fase": "dificil",
+  "arquivo": "py/bla/pesquisa_binária.py",
+  "ini": 4,
+  "tam": 12,
+  "alvo": 3,
+  "linhas": [
+   "def pesquisa_binaria (self):",
+   "    baixo = 0",
+   "    alto = len(self.lista) - 1",
+   "    while baixo <= alto:",
+   "        meio = (baixo + alto) // 2",
+   "        chute = self.lista[meio]",
+   "        if (chute == self.item):",
+   "            return meio",
+   "        if (chute > self.item):",
+   "            alto = meio - 1",
+   "        else:",
+   "            baixo = meio + 1"
+  ],
+  "ln": [
+   6,
+   19
+  ],
+  "pont": 2.1266632760462003
+ },
+ {
+  "lang": "py",
+  "fase": "dificil",
   "arquivo": "py/PA/merge.py",
   "ini": 16,
   "tam": 11,
@@ -1276,6 +3480,51 @@
    32
   ],
   "pont": 2.125459753135252
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/I/Exercicios/strings/20.py",
+  "ini": 2,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "while True:",
+   "    idade = int(input(\"Digite sua idade: \"))",
+   "    if idade < 0:",
+   "        break"
+  ],
+  "ln": [
+   4,
+   7
+  ],
+  "pont": 2.1135514743087493
+ },
+ {
+  "lang": "py",
+  "fase": "dificil",
+  "arquivo": "py/PA/linear2.py",
+  "ini": 191,
+  "tam": 11,
+  "alvo": 9,
+  "linhas": [
+   "if anterior < posterior:",
+   "    lista[anterior] = lista[posterior]",
+   "    anterior = anterior + 1",
+   "while anterior < posterior:",
+   "    comparacoes += 1",
+   "    if lista[anterior] <= pivo:",
+   "        anterior = anterior + 1",
+   "    else:",
+   "        break",
+   "if anterior < posterior:",
+   "    lista[posterior] = lista[anterior]"
+  ],
+  "ln": [
+   236,
+   248
+  ],
+  "pont": 2.111413360271583
  },
  {
   "lang": "py",
@@ -1302,6 +3551,57 @@
    24
   ],
   "pont": 2.108165993954034
+ },
+ {
+  "lang": "py",
+  "fase": "medio",
+  "arquivo": "py/I/Exercicios/Listas/3.py",
+  "ini": 6,
+  "tam": 9,
+  "alvo": 5,
+  "linhas": [
+   "for i in range (0,5):",
+   "    print(f\"{perguntas[i]}\")",
+   "    resposta = int(input(\"(1) Sim\\t(2) Não\\n\"))",
+   "    if resposta == 1:",
+   "        cont_sim += 1",
+   "if cont_sim == 2:",
+   "    print (\"Suspeita\")",
+   "elif cont_sim > 2 and cont_sim < 5:",
+   "    print (\"Cúmplice\")"
+  ],
+  "ln": [
+   9,
+   18
+  ],
+  "pont": 2.107659080844428
+ },
+ {
+  "lang": "py",
+  "fase": "dificil",
+  "arquivo": "py/I/Exercicios/Funções/7.py",
+  "ini": 0,
+  "tam": 12,
+  "alvo": 7,
+  "linhas": [
+   "def fibonacci (n):",
+   "    resultado = []",
+   "    for i in range(0, n+1):",
+   "        if i == 0:",
+   "            resultado.append(0)",
+   "        elif i == 1:",
+   "            resultado.append(1)",
+   "        else:",
+   "            resultado.append(resultado[i-1] + resultado[i-2])",
+   "    return resultado",
+   "n = int(input(\"Digite um número: \"))",
+   "print (f\"{fibonacci(n)}\")"
+  ],
+  "ln": [
+   1,
+   14
+  ],
+  "pont": 2.100575350190745
  },
  {
   "lang": "py",
@@ -1332,6 +3632,32 @@
  {
   "lang": "py",
   "fase": "dificil",
+  "arquivo": "py/II/1° NPC/biblioteca2.py",
+  "ini": 13,
+  "tam": 11,
+  "alvo": 8,
+  "linhas": [
+   "def to_dict(self):",
+   "    return {",
+   "        \"titulo\": self.titulo,",
+   "        \"autor\": self.autor,",
+   "        \"isbn\": self.isbn,",
+   "        \"disponivel\": self.disponivel,",
+   "        \"data_cadastro\": self.data_cadastro",
+   "    }",
+   "def emprestar(self):",
+   "    if self.disponivel:",
+   "        self.disponivel = False"
+  ],
+  "ln": [
+   18,
+   29
+  ],
+  "pont": 2.0725484223544948
+ },
+ {
+  "lang": "py",
+  "fase": "dificil",
   "arquivo": "py/PA/binaria.py",
   "ini": 5,
   "tam": 11,
@@ -1354,6 +3680,192 @@
    17
   ],
   "pont": 2.069767532657892
+ },
+ {
+  "lang": "py",
+  "fase": "medio",
+  "arquivo": "py/PA/quiiick.py",
+  "ini": 0,
+  "tam": 10,
+  "alvo": 5,
+  "linhas": [
+   "def ordena(lista):",
+   "    tamanho_da_lista = len(lista)",
+   "    if tamanho_da_lista > 0:",
+   "        quick_sort(lista, 0, tamanho_da_lista - 1)",
+   "def quick_sort(lista, inicio, fim):",
+   "    if inicio > fim:",
+   "        return",
+   "    anterior = inicio",
+   "    posterior = fim",
+   "    pivo = lista[inicio]"
+  ],
+  "ln": [
+   1,
+   11
+  ],
+  "pont": 2.0695646108878765
+ },
+ {
+  "lang": "py",
+  "fase": "dificil",
+  "arquivo": "py/I/Exercicios/Listas/4.py",
+  "ini": 11,
+  "tam": 11,
+  "alvo": 7,
+  "linhas": [
+   "for i in range(0, 10):",
+   "    if vendas[i] >= 200.00 and vendas[i] < 300:",
+   "        cont_faixa[0] += 1",
+   "    elif vendas[i] >= 300 and vendas[i] < 400:",
+   "        cont_faixa[1] += 1",
+   "    elif vendas[i] >= 400 and vendas[i] < 500:",
+   "        cont_faixa[2] += 1",
+   "    elif vendas[i] >= 500 and vendas[i] < 600:",
+   "        cont_faixa[3] += 1",
+   "    elif vendas[i] >= 600 and vendas[i] < 700:",
+   "        cont_faixa[4] += 1"
+  ],
+  "ln": [
+   14,
+   24
+  ],
+  "pont": 2.0689646404934834
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/I/Exercicios/Funções/1.py",
+  "ini": 0,
+  "tam": 4,
+  "alvo": 1,
+  "linhas": [
+   "def fatorial (n):",
+   "       if n == 0:",
+   "           print (\"Inválido\")",
+   "           return 0"
+  ],
+  "ln": [
+   1,
+   4
+  ],
+  "pont": 2.030947645941301
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/I/Exercicios/Listas/2.py",
+  "ini": 6,
+  "tam": 5,
+  "alvo": 0,
+  "linhas": [
+   "for i in range(12):",
+   "    temperatura = float(input(f\"{mês[i]}: \"))",
+   "    temperatura_mensal.append(temperatura)",
+   "    soma += temperatura",
+   "media_anual = soma / 12"
+  ],
+  "ln": [
+   9,
+   14
+  ],
+  "pont": 2.018254720177507
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/I/Exercicios/Funções/4.py",
+  "ini": 0,
+  "tam": 5,
+  "alvo": 3,
+  "linhas": [
+   "def aval (num):",
+   "    if num > 0:",
+   "        return 'P'",
+   "    else:",
+   "        return 'N'"
+  ],
+  "ln": [
+   1,
+   5
+  ],
+  "pont": 2.005786668608004
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/PA/linear.py",
+  "ini": 1,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "def busca_linear(lista, alvo):",
+   "    global comparacoes",
+   "    for indice in range(len(lista)):",
+   "        comparacoes += 1"
+  ],
+  "ln": [
+   3,
+   6
+  ],
+  "pont": 1.999039819116717
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/II/1° NPC/2.py",
+  "ini": 31,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "if capacidade >= self.pontos_de_funcao:",
+   "    return \"Projeto Viável\"",
+   "else:",
+   "    return \"Projeto Inviável\""
+  ],
+  "ln": [
+   41,
+   44
+  ],
+  "pont": 1.9892506213594863
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/I/Exercicios/strings/7.py",
+  "ini": 3,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "if (sexo == 2 and idade < 25):",
+   "    print (\"ACEITA\")",
+   "else:",
+   "    print (\"NÃO ACEITA\")"
+  ],
+  "ln": [
+   5,
+   8
+  ],
+  "pont": 1.9837723913331922
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/I/Exercicios/strings/14.py",
+  "ini": 2,
+  "tam": 4,
+  "alvo": 0,
+  "linhas": [
+   "for char in palavra:",
+   "    valor_ascii = ord(char)",
+   "    novo_valor_ascii = valor_ascii + 1",
+   "    novo_char = chr(novo_valor_ascii)"
+  ],
+  "ln": [
+   4,
+   7
+  ],
+  "pont": 1.958318528241001
  },
  {
   "lang": "py",
@@ -1384,52 +3896,6 @@
  {
   "lang": "py",
   "fase": "medio",
-  "arquivo": "py/II/1° NPC/biblioteca.py",
-  "ini": 18,
-  "tam": 8,
-  "alvo": 5,
-  "linhas": [
-   "class Usuario:",
-   "    def __init__(self, nome, id_usuario):",
-   "        self.nome = nome",
-   "        self.id_usuario = id_usuario",
-   "        self.livros_emprestados = []",
-   "    def pegar_emprestado(self, livro):",
-   "        if livro.emprestar():",
-   "            self.livros_emprestados.append(livro)"
-  ],
-  "ln": [
-   25,
-   33
-  ],
-  "pont": 2.2663615296937256
- },
- {
-  "lang": "py",
-  "fase": "medio",
-  "arquivo": "py/PA/detran.py",
-  "ini": 26,
-  "tam": 8,
-  "alvo": 3,
-  "linhas": [
-   "def placa_para_numero(placa):",
-   "    placa = placa.upper()",
-   "    n = 0",
-   "    for caracter in placa:",
-   "        if caracter.isdigit():",
-   "            n = n * 10 + int(caracter)",
-   "        else:",
-   "            n = n * 26 + (ord(caracter) - 65)"
-  ],
-  "ln": [
-   34,
-   41
-  ],
-  "pont": 2.1296497446521747
- },
- {
-  "lang": "py",
-  "fase": "medio",
   "arquivo": "py/II/1° NPC/carro.py",
   "ini": 1,
   "tam": 8,
@@ -1449,6 +3915,25 @@
    10
   ],
   "pont": 1.9096897407612454
+ },
+ {
+  "lang": "py",
+  "fase": "facil",
+  "arquivo": "py/I/Exercicios/Revisão 1/energia.py",
+  "ini": 7,
+  "tam": 4,
+  "alvo": 2,
+  "linhas": [
+   "if kWh <= 1000:",
+   "    print (f\"R$ {kWh * 0.55}\")",
+   "else:",
+   "    print (f\"R$ {kWh * 0.6}\")"
+  ],
+  "ln": [
+   9,
+   12
+  ],
+  "pont": 1.9030392923928336
  },
  {
   "lang": "py",
@@ -1521,6 +4006,56 @@
    12
   ],
   "pont": 1.8199838902562706
+ },
+ {
+  "lang": "py",
+  "fase": "dificil",
+  "arquivo": "py/II/1° NPC/lampada.py",
+  "ini": 0,
+  "tam": 11,
+  "alvo": 1,
+  "linhas": [
+   "class Lampada:",
+   "    def __init__(self, voltagem):",
+   "        self.voltagem = voltagem",
+   "        self.ligada = False",
+   "    def ligar(self):",
+   "        self.ligada = True",
+   "        print (f\"Lâmpada ligada: {self.ligada}\")",
+   "    def desligar(self):",
+   "        self.ligada = False",
+   "        print (f\"Lâmpda desligada: {self.ligada}\")",
+   "luz = Lampada(220)"
+  ],
+  "ln": [
+   1,
+   14
+  ],
+  "pont": 1.789325413299891
+ },
+ {
+  "lang": "py",
+  "fase": "medio",
+  "arquivo": "py/II/1° NPC/revisão3.py",
+  "ini": 5,
+  "tam": 9,
+  "alvo": 6,
+  "linhas": [
+   "maior = []",
+   "menor = []",
+   "motivos = []",
+   "for aluno in alunos:",
+   "    if aluno[\"idade\"] >= 18:",
+   "        maior.append(aluno[\"idade\"])",
+   "    else:",
+   "        menor.append(aluno[\"idade\"])",
+   "print (maior)"
+  ],
+  "ln": [
+   7,
+   17
+  ],
+  "pont": 1.7866801258383436
  },
  {
   "lang": "py",
@@ -1614,180 +4149,6 @@
    13
   ],
   "pont": 1.7421722789537082
- },
- {
-  "lang": "py",
-  "fase": "facil",
-  "arquivo": "py/PA/quiiick.py",
-  "ini": 4,
-  "tam": 5,
-  "alvo": 1,
-  "linhas": [
-   "def quick_sort(lista, inicio, fim):",
-   "    if inicio > fim:",
-   "        return",
-   "    anterior = inicio",
-   "    posterior = fim"
-  ],
-  "ln": [
-   6,
-   10
-  ],
-  "pont": 2.376955290050643
- },
- {
-  "lang": "py",
-  "fase": "facil",
-  "arquivo": "py/PA/interpolação.py",
-  "ini": 7,
-  "tam": 5,
-  "alvo": 3,
-  "linhas": [
-   "if lista[posição_estimada] == alvo:",
-   "    print(f\"{alvo} está no indice {meio}\")",
-   "    return",
-   "elif lista[posição_estimada] > alvo:",
-   "    fim = meio - 1"
-  ],
-  "ln": [
-   9,
-   13
-  ],
-  "pont": 2.1703071149133524
- },
- {
-  "lang": "py",
-  "fase": "facil",
-  "arquivo": "py/II/1° NPC/1.py",
-  "ini": 16,
-  "tam": 4,
-  "alvo": 2,
-  "linhas": [
-   "def verificar_viabilidade(self):",
-   "    capacidade = self.capacidade_total()",
-   "    if (capacidade >= self.pontos):",
-   "        print (\"Projeto Viável\")"
-  ],
-  "ln": [
-   21,
-   25
-  ],
-  "pont": 2.1591984285663806
- },
- {
-  "lang": "py",
-  "fase": "facil",
-  "arquivo": "py/I/Exercicios/Funções/1.py",
-  "ini": 0,
-  "tam": 4,
-  "alvo": 1,
-  "linhas": [
-   "def fatorial (n):",
-   "       if n == 0:",
-   "           print (\"Inválido\")",
-   "           return 0"
-  ],
-  "ln": [
-   1,
-   4
-  ],
-  "pont": 2.030947645941301
- },
- {
-  "lang": "py",
-  "fase": "facil",
-  "arquivo": "py/I/Exercicios/Listas/2.py",
-  "ini": 6,
-  "tam": 5,
-  "alvo": 0,
-  "linhas": [
-   "for i in range(12):",
-   "    temperatura = float(input(f\"{mês[i]}: \"))",
-   "    temperatura_mensal.append(temperatura)",
-   "    soma += temperatura",
-   "media_anual = soma / 12"
-  ],
-  "ln": [
-   9,
-   14
-  ],
-  "pont": 2.018254720177507
- },
- {
-  "lang": "py",
-  "fase": "facil",
-  "arquivo": "py/PA/linear.py",
-  "ini": 1,
-  "tam": 4,
-  "alvo": 2,
-  "linhas": [
-   "def busca_linear(lista, alvo):",
-   "    global comparacoes",
-   "    for indice in range(len(lista)):",
-   "        comparacoes += 1"
-  ],
-  "ln": [
-   3,
-   6
-  ],
-  "pont": 1.999039819116717
- },
- {
-  "lang": "py",
-  "fase": "facil",
-  "arquivo": "py/II/1° NPC/2.py",
-  "ini": 31,
-  "tam": 4,
-  "alvo": 2,
-  "linhas": [
-   "if capacidade >= self.pontos_de_funcao:",
-   "    return \"Projeto Viável\"",
-   "else:",
-   "    return \"Projeto Inviável\""
-  ],
-  "ln": [
-   41,
-   44
-  ],
-  "pont": 1.9892506213594863
- },
- {
-  "lang": "py",
-  "fase": "facil",
-  "arquivo": "py/I/Exercicios/strings/7.py",
-  "ini": 3,
-  "tam": 4,
-  "alvo": 2,
-  "linhas": [
-   "if (sexo == 2 and idade < 25):",
-   "    print (\"ACEITA\")",
-   "else:",
-   "    print (\"NÃO ACEITA\")"
-  ],
-  "ln": [
-   5,
-   8
-  ],
-  "pont": 1.9837723913331922
- },
- {
-  "lang": "py",
-  "fase": "facil",
-  "arquivo": "py/I/Exercicios/strings/14.py",
-  "ini": 2,
-  "tam": 4,
-  "alvo": 0,
-  "linhas": [
-   "for char in palavra:",
-   "    valor_ascii = ord(char)",
-   "    novo_valor_ascii = valor_ascii + 1",
-   "    novo_char = chr(novo_valor_ascii)"
-  ],
-  "ln": [
-   4,
-   7
-  ],
-  "pont": 1.958318528241001
  },
  {
   "lang": "py",

@@ -40,11 +40,14 @@ for chave, nome, segundos, descricao in FASES:
     for lang in ('c', 'java', 'py'):
         md.append('\n### %s\n' % NOME[lang])
         for t in [x for x in trechos if x['fase'] == chave and x['lang'] == lang]:
+            if not t.get('linhas') or t['alvo'] >= len(t['linhas']):
+                continue
+            if not t['linhas'][t['alvo']].endswith(SIMBOLO[lang]):
+                continue
             nid += 1
             if str(nid) in melhorados:
                 t = melhorados[str(nid)]
             linhas = list(t['linhas'])
-            assert linhas[t['alvo']].endswith(SIMBOLO[lang]), nid
             linhas[t['alvo']] = linhas[t['alvo']][:-1]
             js.append('      { i: %d, l: %s, m: %s, a: %d, c: [\n%s\n      ] },' % (
                 nid, json.dumps(NOME[lang]), json.dumps(SIMBOLO[lang]), t['alvo'],

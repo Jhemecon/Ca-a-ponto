@@ -154,6 +154,11 @@ def candidatos_arquivo(caminho, lang):
 
 
 REJEITAR = ('Estações', 'Gasto', 'Busca Binária')
+TARGETS = {
+    'facil': {'c': 20, 'java': 20, 'py': 20},
+    'medio': {'c': 20, 'java': 20, 'py': 20},
+    'dificil': {'c': 20, 'java': 20, 'py': 20},
+}
 
 
 PALAVRAS = ('for','if','else','while','return','def','int','float','void','public','class','do','break','continue','print','range','true','false')
@@ -170,6 +175,18 @@ def parecido(c, u):
     bruto = lambda x: re.sub(r'\d+', '0', '\n'.join(x['linhas']).lower())
     return (difflib.SequenceMatcher(None, bruto(c), bruto(u)).ratio() > 0.5
             or difflib.SequenceMatcher(None, estrutura(c), estrutura(u)).ratio() > 0.8)
+
+
+def carregar_selecionados_anteriores():
+    caminho = os.path.join(AQUI, 'dados', 'selecionados.json')
+    if not os.path.exists(caminho):
+        return []
+    try:
+        with open(caminho, encoding='utf-8') as f:
+            dados = json.load(f)
+        return dados if isinstance(dados, list) else []
+    except Exception:
+        return []
 
 
 def main():
@@ -195,7 +212,79 @@ def main():
                 if any(parecido(c, u) for u in escolhidos + usados): continue
                 uso[c['arquivo']] = uso.get(c['arquivo'], 0) + 1; vistos.add(chave); por_arq[c['arquivo']] = por_arq.get(c['arquivo'], 0) + 1; usados.append(c)
             escolhidos += usados
-    json.dump(escolhidos, open(os.path.join(AQUI, 'dados', 'selecionados.json'), 'w'), ensure_ascii=False, indent=1)
+
+    anteriores = carregar_selecionados_anteriores()
+    existente = {}
+    for item in anteriores:
+        chave = (
+            item.get('lang'),
+            item.get('fase'),
+            item.get('arquivo'),
+            item.get('ini'),
+            item.get('tam'),
+            item.get('alvo'),
+            tuple(item.get('linhas', [])),
+        )
+        existente[chave] = item
+    for item in escolhidos:
+        chave = (
+            item.get('lang'),
+            item.get('fase'),
+            item.get('arquivo'),
+            item.get('ini'),
+            item.get('tam'),
+            item.get('alvo'),
+            tuple(item.get('linhas', [])),
+        )
+        existente.setdefault(chave, item)
+
+    final = list(existente.values())
+    por_grupo = {}
+    for item in final:
+        key = (item.get('lang'), item.get('fase'))
+        por_grupo.setdefault(key, []).append(item)
+
+    for lang in ('c', 'java', 'py'):
+        for fase in ('facil', 'medio', 'dificil'):
+            chave = (lang, fase)
+            alvo = TARGETS[fase].get(lang, 20)
+            grupo = por_grupo.get(chave, [])
+            if len(grupo) >= alvo:
+                por_grupo[chave] = sorted(grupo, key=lambda x: (x.get('pont', 0), x.get('arquivo', '')), reverse=True)[:alvo]
+                continue
+            candidatos = sorted(
+                [c for c in todos if c['lang'] == lang and c['fase'] == fase and not any(
+                    (c['lang'], c['fase'], c['arquivo'], c['ini'], c['tam'], c['alvo'], tuple(c['linhas'])) == (
+                        item.get('lang'), item.get('fase'), item.get('arquivo'), item.get('ini'), item.get('tam'), item.get('alvo'), tuple(item.get('linhas', []))
+                    ) for item in final
+                )],
+                key=lambda c: c['pont'],
+                reverse=True,
+            )
+            usados = { (item.get('lang'), item.get('fase'), item.get('arquivo'), item.get('ini'), item.get('tam'), item.get('alvo'), tuple(item.get('linhas', []))) for item in grupo }
+            for c in candidatos:
+                k = (c['lang'], c['fase'], c['arquivo'], c['ini'], c['tam'], c['alvo'], tuple(c['linhas']))
+                if len(grupo) >= alvo:
+                    break
+                if k in usados:
+                    continue
+                grupo.append(c)
+                usados.add(k)
+            por_grupo[chave] = sorted(grupo, key=lambda x: (x.get('pont', 0), x.get('arquivo', '')), reverse=True)[:alvo]
+
+    final = []
+    for lang in ('c', 'java', 'py'):
+        for fase in ('facil', 'medio', 'dificil'):
+            grupo = por_grupo.get((lang, fase), [])
+            itens = sorted(grupo, key=lambda x: (x.get('pont', 0), x.get('arquivo', '')), reverse=True)
+            final.extend(itens[:TARGETS[fase].get(lang, 20)])
+
+    by_lang = {lang: [item for item in final if item.get('lang') == lang] for lang in ('c', 'java', 'py')}
+    final = []
+    for lang in ('c', 'java', 'py'):
+        final.extend(sorted(by_lang.get(lang, []), key=lambda x: (x.get('pont', 0), x.get('arquivo', '')), reverse=True)[:60])
+
+    json.dump(final, open(os.path.join(AQUI, 'dados', 'selecionados.json'), 'w'), ensure_ascii=False, indent=1)
     for c in escolhidos:
         print(f"\n## {c['lang']} {c['fase']} | {c['arquivo']} [{c['ini']}+{c['tam']}] alvo={c['alvo']}")
         for k, l in enumerate(c['linhas']):
