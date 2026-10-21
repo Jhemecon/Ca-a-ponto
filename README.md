@@ -99,7 +99,3 @@ Se você editar o `js/codigos.js` à mão, não rode o `montar_codigos.py` depoi
 
 Os trechos vêm de exercícios de C, Java e Python feitos até o 4º período, adaptados para o jogo.
 Parte dos trechos de Java foi criada no estilo das aulas. O `docs/trechos.md` marca a origem de cada um.
-
-## Licença
-
-Defina a licença do projeto antes de publicar (por exemplo MIT, em Add file → Create new file → `LICENSE`).
