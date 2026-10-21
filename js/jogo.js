@@ -31,6 +31,22 @@ const hl = (x) =>
     .replace(KW, (m, a, b) => `<i class="${a ? "s" : b ? "n" : "k"}">${m}</i>`);
 const PESO = [1, 1.5, 2],
   PTS = { base: 100, perfeito: 50, passo: 0.1, maxMult: 1.5, vitoria: 500 };
+let torneioAtivo = null,
+  tutorialBatalhaVisto = false,
+  demoAoConcluir = null,
+  demoTimer = 0;
+function montarJogosTorneio() {
+  torneioAtivo.jogos = [];
+  torneioAtivo.indice = 0;
+  torneioAtivo.vencedores = [];
+  const nomes = [...torneioAtivo.jogadores];
+  if (nomes.length % 2) torneioAtivo.vencedores.push(nomes.pop());
+  for (let k = 0; k < nomes.length; k += 2) torneioAtivo.jogos.push([nomes[k], nomes[k + 1]]);
+}
+function proximoJogoTorneio() {
+  if (torneioAtivo.indice + 1 >= torneioAtivo.jogos.length) return null;
+  return torneioAtivo.jogos[++torneioAtivo.indice];
+}
 let order,
   i,
   t,
@@ -47,11 +63,22 @@ let order,
   dbDoc = null,
   wq = Promise.resolve(),
   nm = "",
+  editando = null,
   modo = "solo",
   J1 = null,
   B = null,
   tutDepois = null;
 const LS = "pvplayers2",
+  CONFIG_LS = "pvconfig1",
+  VOLUME_PADRAO = { menu: 0.12, batalha: 0.62, tutorial: 0.07, sfx: 0.22 },
+  configuracao = (() => {
+    try {
+      const salvo = JSON.parse(localStorage.getItem(CONFIG_LS)) || {};
+      return Object.fromEntries(Object.keys(VOLUME_PADRAO).map((k) => [k,
+        Number.isFinite(+salvo[k]) ? Math.min(1, Math.max(0, +salvo[k])) : VOLUME_PADRAO[k],
+      ]));
+    } catch (e) { return { ...VOLUME_PADRAO }; }
+  })(),
   esc = (s) => String(s).replace(/[&<>"']/g, (c) => "&#" + c.charCodeAt(0) + ";");
 const clean = (a) =>
   (Array.isArray(a) ? a : [])
@@ -78,6 +105,26 @@ function save() {
   } catch (e) {}
   if (dbDoc) wq = wq.then(() => dbDoc.set({ players: PL })).catch(() => {});
 }
+function salvarConfiguracao() {
+  try { localStorage.setItem(CONFIG_LS, JSON.stringify(configuracao)); } catch (e) {}
+  aplicarVolumes();
+  atualizarControlesVolume();
+}
+function aplicarVolumes() {
+  $("musicaMenu").volume = configuracao.menu;
+  $("musicaDesafio").volume = $("demoBatalha").classList.contains("on")
+    ? configuracao.tutorial : configuracao.batalha;
+  $("sfxCerto").volume = configuracao.sfx;
+  $("sfxErrado").volume = configuracao.sfx;
+}
+function atualizarControlesVolume() {
+  Object.entries({ menu: "volMenu", batalha: "volBatalha", tutorial: "volTutorial", sfx: "volSfx" }).forEach(([chave, id]) => {
+    if ($(id)) {
+      $(id).value = Math.round(configuracao[chave] * 100);
+      $(id + "Valor").textContent = $(id).value + "%";
+    }
+  });
+}
 async function initDb() {
   try {
     const db = await claude.use("db");
@@ -102,7 +149,7 @@ function rank(id, n) {
   $(id).innerHTML = L.length
     ? L.map(
         (p, k) =>
-          `<li class="${cur && p.n === cur.n ? "me" : ""}"><span>${["🥇", "🥈", "🥉"][k] || k + 1 + "º"} ${esc(p.n)}</span><b>${p.b}</b></li>`,
+          `<li class="${cur && p.n === cur.n ? "me" : ""}"><span>${k + 1}º ${esc(p.n)}</span><b>${p.b}</b></li>`,
       ).join("")
     : '<li class="v">Ninguém jogou ainda… seja o primeiro! 👻</li>';
 }
@@ -115,12 +162,16 @@ function who() {
         : "Quem é você?";
   clearTimeout(idle);
   idle = setTimeout(home, 120000);
-  if (!PL.length) return nameScr();
+  if (!PL.length) {
+    $("pl").innerHTML = '<p class="listaVazia">Nenhum jogador cadastrado. Use “Novo jogador” para criar um.</p>';
+    show("whoS");
+    return;
+  }
   $("pl").innerHTML = PL.filter((p) => !(modo === "b2" && p.n === J1.n))
     .sort((a, b) => b.t - a.t)
     .map(
       (p, k) =>
-        `<button class="pb${k ? "" : " last"}" data-n="${esc(p.n)}">${esc(p.n)}<small>${p.b ? "recorde " + p.b : "sem pontos ainda"}</small></button>`,
+        `<div class="jogadorItem"><button class="pb${k ? "" : " last"}" data-n="${esc(p.n)}">${esc(p.n)}<small>${p.b ? "recorde " + p.b : "sem pontos ainda"}</small></button><div class="acoesJogador"><button class="acaoJogador" data-editar="${esc(p.n)}" aria-label="Editar ${esc(p.n)}">Editar</button><button class="acaoJogador excluir" data-excluir="${esc(p.n)}" aria-label="Excluir ${esc(p.n)}">Excluir</button></div></div>`,
     )
     .join("");
   show("whoS");
@@ -128,14 +179,16 @@ function who() {
 const drawN = () => {
   $("nin").textContent = nm + "_";
 };
-function nameScr() {
+function nameScr(jogador = null) {
+  editando = jogador ? jogador.n : null;
   $("nmT").textContent =
-    modo === "b1"
+    jogador ? "Editar jogador"
+      : modo === "b1"
       ? "Jogador 1: qual é o seu nome?"
       : modo === "b2"
         ? "Jogador 2: qual é o seu nome?"
         : "Qual é o seu nome?";
-  nm = "";
+  nm = jogador ? jogador.n : "";
   $("nerr").textContent = "";
   drawN();
   show("nmS");
@@ -147,6 +200,13 @@ const shuffle = (a) =>
     .map((x) => x[1]);
 function show(id) {
   document.querySelectorAll(".scr").forEach((s) => s.classList.toggle("on", s.id === id));
+}
+function tocarMenu() {
+  const audio = $("musicaMenu");
+  if (!audio) return;
+  audio.volume = configuracao.menu;
+  const tocando = audio.play();
+  if (tocando) tocando.catch(() => {});
 }
 function say(m, c) {
   $("msg").textContent = m;
@@ -167,6 +227,7 @@ function shake() {
 }
 function start() {
   clearTimeout(idle);
+  $("musicaMenu").pause();
   order = P.flatMap((p, k) =>
     shuffle(["C", "Java", "Python"].map((l) => sorteia(p.s.filter((r) => r.l === l)))).map((r) => ({
       ...r,
@@ -237,8 +298,8 @@ function pick(k, d) {
     d.querySelector(".tx").insertAdjacentHTML("beforeend", `<b class="semi">${r.m}</b>`);
     say(
       r.m === ":"
-        ? "🐍 Achou! Sem esse : o Python solta um SyntaxError de pavor."
-        : "✅ Achou! Sem esse ; o compilador solta um grito de terror.",
+        ? "Achou! Sem esse : o Python solta um SyntaxError de pavor."
+        : "Achou! Sem esse ; o compilador solta um grito de terror.",
       "ok-t",
     );
     setTimeout(() => {
@@ -252,7 +313,7 @@ function pick(k, d) {
     pop("−5s", 0);
     shake();
     d.classList.add("x");
-    say("Essa linha está certa! Procure em outra. 🔍", "bad-t");
+    say("Essa linha está certa! Procure em outra.", "bad-t");
     if (t <= 0) end(0);
   }
 }
@@ -280,9 +341,9 @@ function end(win) {
   save();
   const pos = ranked(999).findIndex((p) => p.n === cur.n) + 1;
   render();
-  $("et").textContent = win ? "Bugs exorcizados! 🎃" : "O tempo acabou… 💀";
+  $("et").textContent = win ? "Bugs exorcizados!" : "O tempo acabou…";
   $("es").innerHTML =
-    `<b>${esc(cur.n)}</b>, você caçou <b>${done}/${TOT}</b> fantasmas<br>Pontos: <b>${sc}</b>${rec ? " · 🔥 novo recorde pessoal!" : " · seu recorde: <b>" + cur.b + "</b>"}${pos ? "<br>Posição no ranking: <b>" + pos + "º</b>" : ""}` +
+    `<b>${esc(cur.n)}</b>, você caçou <b>${done}/${TOT}</b> fantasmas<br>Pontos: <b>${sc}</b>${rec ? " · novo recorde pessoal!" : " · seu recorde: <b>" + cur.b + "</b>"}${pos ? "<br>Posição no ranking: <b>" + pos + "º</b>" : ""}` +
     (win
       ? "<br>Você zerou as 3 fases! Bônus de vitória: +" +
         PTS.vitoria +
@@ -294,7 +355,12 @@ function end(win) {
 }
 function home() {
   clearTimeout(idle);
+  clearTimeout(demoTimer);
+  demoAoConcluir = null;
   B = null;
+  torneioAtivo = null;
+  $("musicaDesafio").pause();
+  tocarMenu();
   modo = "solo";
   rank("rk1", 5);
   show("start");
@@ -314,22 +380,78 @@ $("kb").innerHTML =
     .join("") +
   '<button data-k="⌫" class="w">⌫</button><button data-k=" " class="wf">ESPAÇO</button>';
 $("play").onclick = () => {
+  tocarMenu();
   modo = "solo";
   who();
 };
 $("again").onclick = () => {
+  tocarMenu();
   modo = "solo";
   who();
 };
 $("btnBat").onclick = () => {
+  tocarMenu();
   modo = "b1";
   who();
 };
-$("btnTut").onclick = () => tutorial(home);
+$("btnTorneio").onclick = () => {
+  tocarMenu();
+  $("torLista").innerHTML = PL.length ? PL.map((p,k) => '<label class="torItem"><input type="checkbox" value="' + esc(p.n) + '"' + (k < 2 ? ' checked' : '') + '> ' + esc(p.n) + '</label>').join("") : "<p>Cadastre jogadores primeiro, usando Jogar.</p>";
+  $("torMsg").textContent = "";
+  show("torneio");
+};
+$("torVoltar").onclick = home;
+$("torGo").onclick = () => {
+  const nomes = [...$("torLista").querySelectorAll("input:checked")].map((x) => x.value);
+  if (nomes.length < 2) return void ($("torMsg").textContent = "Selecione pelo menos 2 jogadores.");
+  torneioAtivo = { jogadores: nomes, vencedores: [], jogos: [], indice: 0 };
+  montarJogosTorneio();
+  $("vsN1").textContent = torneioAtivo.jogos[0][0];
+  $("vsN2").textContent = torneioAtivo.jogos[0][1];
+  show("telaVS");
+};
+$("btnTut").onclick = () => {
+  tocarMenu();
+  tutorial(home);
+};
+$("btnConfig").onclick = () => {
+  tocarMenu();
+  atualizarControlesVolume();
+  show("config");
+};
+$("configVoltar").onclick = home;
+$("volPadrao").onclick = () => {
+  Object.assign(configuracao, VOLUME_PADRAO);
+  salvarConfiguracao();
+};
+[["menu", "volMenu"], ["batalha", "volBatalha"], ["tutorial", "volTutorial"], ["sfx", "volSfx"]].forEach(([chave, id]) => {
+  $(id).addEventListener("input", () => {
+    configuracao[chave] = Number($(id).value) / 100;
+    salvarConfiguracao();
+  });
+});
 $("newp").onclick = nameScr;
 $("back").onclick = home;
 $("nback").onclick = () => (PL.length ? who() : home());
 $("pl").addEventListener("click", (e) => {
+  const editar = e.target.closest("[data-editar]");
+  if (editar) {
+    const jogador = PL.find((p) => p.n === editar.dataset.editar);
+    if (jogador) nameScr(jogador);
+    return;
+  }
+  const excluir = e.target.closest("[data-excluir]");
+  if (excluir) {
+    const jogador = PL.find((p) => p.n === excluir.dataset.excluir);
+    if (!jogador || !confirm("Excluir o jogador " + jogador.n + "? O recorde dele também será removido.")) return;
+    PL = PL.filter((p) => p !== jogador);
+    if (cur === jogador) cur = null;
+    save();
+    rank("rk1", 5);
+    rank("rk2", 8);
+    who();
+    return;
+  }
   const b = e.target.closest(".pb");
   if (b) {
     const j = PL.find((p) => p.n === b.dataset.n);
@@ -347,20 +469,34 @@ $("kb").addEventListener("pointerdown", (e) => {
 $("nok").onclick = () => {
   const n = nm.trim().replace(/\s+/g, " ");
   if (n.length < 2) return void ($("nerr").textContent = "Digite pelo menos 2 letras.");
-  if (PL.some((p) => p.n.toLowerCase() === n.toLowerCase()))
+  if (PL.some((p) => p.n.toLowerCase() === n.toLowerCase() && p.n.toLowerCase() !== String(editando || "").toLowerCase()))
     return void ($("nerr").textContent = "Esse nome já existe! Volte e toque nele na lista.");
+  if (editando) {
+    const antigo = PL.find((p) => p.n === editando);
+    if (!antigo) return void ($("nerr").textContent = "Esse jogador não existe mais.");
+    const atualizado = { ...antigo, n, t: Date.now() };
+    PL[PL.indexOf(antigo)] = atualizado;
+    if (cur === antigo) cur = atualizado;
+    if (J1 === antigo) J1 = atualizado;
+    editando = null;
+    save();
+    rank("rk1", 5);
+    rank("rk2", 8);
+    who();
+    return;
+  }
   const j = { n, b: 0, p: 0, t: Date.now() };
   PL.push(j);
   save();
-  escolheu(j, true);
+  escolheu(j);
 };
 window.addEventListener("load", initDb);
 
 /* ---------- escolha de jogador (solo ou batalha) ---------- */
-function escolheu(j, novo) {
+function escolheu(j) {
   if (modo === "solo") {
     cur = j;
-    novo ? tutorial(start) : start();
+    start();
   } else if (modo === "b1") {
     J1 = j;
     modo = "b2";
@@ -371,35 +507,21 @@ function escolheu(j, novo) {
 /* ---------- tutorial ---------- */
 const TUT = [
   {
-    t: "Como jogar",
-    h: "Em cada rodada aparece um código com <b>um erro</b>.<br>Falta um <b>;</b> no fim de uma linha em <b>C</b> e <b>Java</b>, ou os <b>:</b> em <b>Python</b>.<br>Toque na linha com o erro antes que o tempo acabe!",
+    t: "Encontre o erro",
+    h: "Toque na linha sem <b>;</b> em C e Java ou sem <b>:</b> em Python. Este tutorial é opcional; no Solo você pode treinar no seu ritmo.",
   },
   {
-    t: "Treine: C e Java",
-    m: ";",
-    a: 1,
-    c: ["int vidas = 3;", "int fantasmas = 5", 'printf("%d", vidas);'],
-    h: "Qual linha está sem o <b>;</b> no final? Toque nela!",
+    t: "Treino com calma",
+    h: "No Solo, o tempo é por código: <b>30s</b> no Fácil, <b>15s</b> no Médio e <b>10s</b> no Difícil. Cada erro tira <b>5s</b> e bloqueia aquela linha. O Solo não toca música nem efeitos sonoros.",
   },
   {
-    t: "Treine: Python",
-    m: ":",
-    a: 1,
-    c: ['nome = "Zumbi"', 'if nome == "Zumbi"', '    print("Buuu!")'],
-    h: "Em Python faltam os <b>:</b> no fim de <b>if</b>, <b>for</b>, <b>while</b> e <b>def</b>. Toque na linha sem ele!",
+    t: "Pontos e batalha",
+    h: "No Solo, rapidez e sequência de acertos aumentam a pontuação. Na <b>Batalha</b>, cada erro toca um som e avança para outro código, sem nova tentativa. Não há placar entre os 3 rounds: a contagem de acertos, erros e pontos aparece no final. No Difícil, acertos seguidos aumentam o multiplicador.",
   },
-  {
-    t: "Fases e tempo",
-    h: "São <b>3 fases</b>, com 3 códigos cada (C, Java e Python):<br>🟢 <b>Fácil</b>: 30s por código · 🟡 <b>Médio</b>: 15s · 🔴 <b>Difícil</b>: 10s<br>Cada erro tira <b>5s</b> e bloqueia aquela linha. Acabou o tempo? Fim de jogo!",
-  },
-  {
-    t: "Pontos",
-    h: "Quanto <b>mais rápido</b> e <b>sem errar</b>, mais pontos.<br>Acertos seguidos multiplicam a pontuação (até <b>×1,5</b>), fases difíceis valem mais<br>e zerar as 3 fases dá <b>+500</b>. Seu melhor placar entra no ranking!<br>⚔️ Quer duelar? Use a <b>Batalha</b>, para 2 jogadores.",
-  },
-];
-let tp = 0,
+];let tp = 0,
   tOk = false;
 function tutorial(depois) {
+  $("musicaMenu").pause();
   tutDepois = depois;
   tp = 0;
   mostraTut();
@@ -421,7 +543,7 @@ function mostraTut() {
   $("tutM").textContent = "";
   $("tutP").textContent = tp + 1 + "/" + TUT.length;
   $("tutAnt").style.visibility = tp ? "visible" : "hidden";
-  $("tutProx").textContent = tp === TUT.length - 1 ? "🎃 Entendi, vamos jogar!" : "Próximo →";
+  $("tutProx").textContent = tp === TUT.length - 1 ? "Entendi, vamos jogar!" : "Próximo →";
   $("tutProx").style.opacity = tOk ? 1 : 0.35;
 }
 function fimTut() {
@@ -438,7 +560,7 @@ $("tutD").addEventListener("pointerdown", (e) => {
     d.classList.add("ok");
     d.querySelector(".tx").insertAdjacentHTML("beforeend", `<b class="semi">${p.m}</b>`);
     $("tutM").className = "ok-t";
-    $("tutM").textContent = "✅ Isso! Sem esse " + p.m + " o código não funciona.";
+    $("tutM").textContent = "Isso! Sem esse " + p.m + " o código não funciona.";
     $("tutProx").style.opacity = 1;
   } else {
     d.classList.add("x");
@@ -461,127 +583,387 @@ $("tutAnt").onclick = () => {
 };
 $("tutPular").onclick = fimTut;
 
-/* ---------- batalha: tela dividida, melhor de 5 ---------- */
+/* ---------- batalha: tela dividida, três etapas com trilha ---------- */
+
 function iniciarBatalha(a, b) {
-  let ult = "";
-  const rod = [0, 1, 1, 2, 2].map((k) => {
-    const ls = ["C", "Java", "Python"].filter((l) => l !== ult),
-      l = ls[Math.floor(Math.random() * ls.length)];
-    ult = l;
-    const g = P[k].s.filter((r) => r.l === l),
-      curtos = g.filter((r) => Math.max(...r.c.map((x) => x.length)) <= 50);
-    return { ...sorteia(curtos.length > 2 ? curtos : g), ph: k };
-  });
-  B = { j: [a.n, b.n], pts: [0, 0], r: 0, rod, on: false, cong: [0, 0], t: 30, T: 30, last: 0 };
+  B = {
+    j: [a.n, b.n], pts: [0, 0], etapa: 0, on: false, perguntas: [null, null],
+    respondidos: [false, false], errosLinha: [new Set(), new Set()],
+    etapaPontos: [[0, 0], [0, 0], [0, 0]], sequencia: [0, 0],
+    etapaLogs: [[[], []], [[], []], [[], []]], timerEtapa: 0, timerPergunta: 0, token: 0,
+  };
   clearTimeout(idle);
-  $("vsN1").textContent = a.n;
-  $("vsN2").textContent = b.n;
-  show("telaVS");
+  $('vsN1').textContent = a.n;
+  $('vsN2').textContent = b.n;
+  show('telaVS');
+}
+const TUT_BATALHA = [
+  {
+    titulo: "Etapa 1 · procure o símbolo",
+    texto: "Cada pessoa joga no próprio lado. Procure a linha sem ; em C/Java ou sem : em Python. O cursor vai mostrar o toque.",
+  },
+  {
+    titulo: "Etapa 2 · erre, tente de novo",
+    texto: "Se errar, você ouve o som e o código avança sem pontos; não há segunda tentativa. Entre rounds, só aparece a confirmação para seguir. A contagem fica para o final.",
+  },
+  {
+    titulo: "Etapa 3 · final em dobro",
+    texto: "A última etapa usa códigos difíceis. Cada acerto vale 2 pontos; 4 acertos seguidos valem 4 pontos cada e 7 seguidos valem 6, até o fim do round. Só no final aparece a contagem dos três rounds e o vencedor é revelado.",
+  },
+];
+function iniciarTutorialBatalha(depois) {
+  demoAoConcluir = depois;
+  demoIndice = 0;
+  $("musicaMenu").pause();
+  const musica = $("musicaDesafio");
+  musica.volume = configuracao.tutorial;
+  musica.loop = true;
+  try { musica.currentTime = 0; } catch (e) {}
+  const tocando = musica.play();
+  if (tocando) tocando.catch(() => {});
+  mostraDemoBatalha();
+}
+let demoIndice = 0;
+function mostraDemoBatalha() {
+  clearTimeout(demoTimer);
+  const p = TUT_BATALHA[demoIndice];
+  $("demoCont").textContent = "ETAPA " + (demoIndice + 1) + " DE 3";
+  $("demoTitulo").textContent = p.titulo;
+  $("demoTexto").textContent = p.texto;
+  $("demoPontos").innerHTML = TUT_BATALHA.map((_, k) => '<span class="demoDot' + (k === demoIndice ? ' ativo' : '') + '"></span>').join("");
+  $("demoAnt").disabled = demoIndice === 0;
+  $("demoProx").hidden = demoIndice === TUT_BATALHA.length - 1;
+  $("demoOk").hidden = demoIndice !== TUT_BATALHA.length - 1;
+  $("demoCursor").classList.remove("tocando");
+  if (demoIndice === 0) demoPunctuacao(0);
+  else if (demoIndice === 1) demoErro();
+  else demoPontuacaoFinal();
+  show("demoBatalha");
+}
+function apontarDemo(alvo, mensagem, corrigir) {
+  clearTimeout(demoTimer);
+  demoTimer = setTimeout(() => {
+    const alvoEl = $(alvo), cursor = $("demoCursor"), palco = $("demoPalco");
+    if (!alvoEl) return;
+    const a = alvoEl.getBoundingClientRect(), b = palco.getBoundingClientRect();
+    cursor.style.left = (a.left - b.left + a.width * 0.78) + "px";
+    cursor.style.top = (a.top - b.top + a.height * 0.45) + "px";
+    cursor.classList.add("visivel");
+    demoTimer = setTimeout(() => {
+      cursor.classList.add("tocando");
+      if (corrigir) alvoEl.classList.add("demoAcerto");
+      else if (demoIndice !== 1) alvoEl.classList.add("demoErro");
+      if (corrigir) alvoEl.querySelector(".tx").insertAdjacentHTML("beforeend", '<b class="semi">' + corrigir + "</b>");
+      $("demoResultado").textContent = mensagem;
+      demoTimer = setTimeout(() => {
+        if (demoIndice === 0) demoPunctuacao(demoDemoTipo === 0 ? 1 : 0);
+        else if (demoIndice === 1) demoAvancarCodigoDemo();
+      }, demoIndice === 0 ? 2200 : 1700);
+    }, 500);
+  }, 500);
+}
+let demoDemoTipo = 0;
+function demoPunctuacao(tipo) {
+  demoDemoTipo = tipo;
+  const python = tipo === 1;
+  const linhas = python
+    ? ['vidas = 3', 'if vidas > 0', '    print("Vai!")']
+    : ['int vidas = 3;', 'int erros = 0', 'printf("%d", vidas);'];
+  const alvo = python ? 1 : 1;
+  $("demoVis").innerHTML = '<div class="demoJanela"><div class="demoEtiqueta">' + (python ? "PYTHON · falta :" : "C · falta ;") +
+    '</div><div class="demoCodigo">' + linhas.map((x, k) => '<div class="demoLinha' + (k === alvo ? ' alvo' : '') + '" id="demoLinha' + k + '"><span class="no">' +
+    (k + 1) + '</span><span class="tx">' + hl(x) + '</span></div>').join("") +
+    '</div><div class="demoResultado" id="demoResultado">Observe o cursor...</div></div>';
+  $("demoCursor").classList.remove("visivel", "tocando");
+  apontarDemo("demoLinha" + alvo, python ? "Toque na linha e complete com :" : "Toque na linha e complete com ;", python ? ":" : ";");
+}
+function demoErro() {
+  $("demoVis").innerHTML = '<div class="demoJanela"><div class="demoEtiqueta">O JOGO CONTINUA</div><div class="demoCodigo"><div class="demoLinha"><span class="no">1</span><span class="tx">int vidas = 3;</span></div><div class="demoLinha alvo" id="demoAlvo"><span class="no">2</span><span class="tx">if (vidas > 0);</span></div><div class="demoLinha"><span class="no">3</span><span class="tx">printf("Vai!");</span></div></div><div class="demoResultado" id="demoResultado">Toque numa linha errada para ver o que acontece.</div><div class="demoLegenda">O erro toca um som e não vale pontos.</div></div>';
+  $("demoCursor").classList.remove("visivel", "tocando");
+  apontarDemo("demoAlvo", "Som de erro; este código não pontua.", null);
+}
+function demoAvancarCodigoDemo() {
+  $("demoCursor").classList.remove("visivel", "tocando");
+  const vis = $("demoVis");
+  vis.classList.remove("demoTroca");
+  void vis.offsetWidth;
+  vis.innerHTML = '<div class="demoJanela demoTroca"><div class="demoEtiqueta">CÓDIGO NOVO</div><div class="demoCodigo"><div class="demoLinha"><span class="no">1</span><span class="tx">for (int i = 0; i &lt; 3; i++)</span></div><div class="demoLinha alvo"><span class="no">2</span><span class="tx">    printf("Próximo código");</span></div></div><div class="demoResultado">A tentativa acabou. O jogo já avançou.</div></div>';
+}
+function demoPontuacaoFinal() {
+  $("demoVis").innerHTML = '<div class="demoResumo"><div class="demoResumoCab"><b>Round</b><b>Ana</b><b>Beto</b></div><div><span>1 · Fácil</span><b>4 acertos · 2 erros · +4</b><b>3 acertos · 1 erro · +3</b></div><div><span>2 · Médio</span><b>5 acertos · 1 erro · +5</b><b>5 acertos · 2 erros · +5</b></div><div class="final"><span>3 · Difícil</span><b>8 acertos · combo x2 · +16</b><b>4 acertos · combo x1 · +8</b></div></div><div class="demoResultado demoSuspense" id="demoResultado">Contando os três rounds...</div>';
+  $("demoCursor").classList.remove("visivel", "tocando");
+  demoTimer = setTimeout(() => {
+    if (demoIndice !== 2 || !$("demoResultado")) return;
+    $("demoResultado").textContent = "Total: Ana 25 · Beto 16";
+    demoTimer = setTimeout(() => {
+      if (demoIndice === 2 && $("demoResultado")) $("demoResultado").textContent = "E a vencedora é... Ana!";
+    }, 1300);
+  }, 1300);
+}
+function fecharTutorialBatalha() {
+  clearTimeout(demoTimer);
+  $("demoCursor").classList.remove("visivel", "tocando");
+  const musica = $("musicaDesafio");
+  musica.pause();
+  musica.loop = false;
+  musica.volume = configuracao.batalha;
+  try { musica.currentTime = 0; } catch (e) {}
+  const seguir = demoAoConcluir;
+  demoAoConcluir = null;
+  tutorialBatalhaVisto = true;
+  if (seguir) seguir();
+}
+function tocarSfx(id) {
+  const som = $(id);
+  if (!som) return;
+  try {
+    som.pause(); som.currentTime = 0; som.volume = configuracao.sfx;
+    const tocando = som.play();
+    if (tocando) tocando.catch(() => {});
+  } catch (e) {}
 }
 function bRound() {
-  const tok = B,
-    r = B.rod[B.r],
-    f = P[r.ph],
-    cols = Math.max(...r.c.map((x) => x.length)) + 4;
+  const partida = B, token = ++B.token, fase = P[B.etapa], musica = $('musicaDesafio');
+  $('musicaMenu').pause();
+  musica.volume = configuracao.batalha;
+  musica.loop = false;
+  B.on = true;
+  B.sequencia = [0, 0];
+  $('bInfo').textContent = 'Etapa ' + (B.etapa + 1) + '/3 · ' + fase.n + (B.etapa === 2 ? ' · PONTOS EM DOBRO' : '');
+  [0, 1].forEach((s) => {
+    $('lado' + s).style.setProperty('--perigo-bg', '0%');
+  });
+  [0, 1].forEach((s) => {
+    $('cab' + s).innerHTML = '<span>' + esc(B.j[s]) + ' · ' + B.pts[s] + ' pts</span><span class="lg">?</span>';
+  });
+  $('bMsg').textContent = '';
+  show('batalha');
+  [0, 1].forEach((s) => bNovaPergunta(s, token, partida));
+  musica.pause();
+  try { musica.currentTime = 0; } catch (e) {}
+  const iniciarRelogio = () => {
+    if (B !== partida || token !== B.token || !B.on) return;
+    const duracao = Number.isFinite(musica.duration) ? musica.duration : 180;
+    clearTimeout(B.timerEtapa);
+    const restante = duracao - 2 - musica.currentTime;
+    if (restante <= 0) return bFimEtapa(token, partida);
+    B.timerEtapa = setTimeout(() => bFimEtapa(token, partida), restante * 1000);
+  };
+  musica.onloadedmetadata = iniciarRelogio;
+  const tocando = musica.play();
+  if (tocando) tocando.then(() => {
+    if (Number.isFinite(musica.duration)) iniciarRelogio();
+  }).catch(() => {
+    $('bMsg').textContent = 'Não foi possível tocar a trilha. A etapa seguirá sem áudio.';
+    iniciarRelogio();
+  });
+  if (Number.isFinite(musica.duration)) iniciarRelogio();
+}
+function bNovaPergunta(s, token, partida) {
+  if (B !== partida || token !== B.token || !B.on) return;
+  const r = { ...sorteia(P[B.etapa].s), ph: B.etapa };
+  B.perguntas[s] = r;
+  B.respondidos[s] = false;
+  B.errosLinha[s] = new Set();
+  const cols = Math.max(...r.c.map((x) => x.length)) + 4;
+  $('cod' + s).style.setProperty('--fw', 45 / (cols * 0.6) + 'vw');
+  $('cod' + s).style.setProperty('--fh', (58 / r.c.length - 1) / 1.35 + 'vh');
+  const lg = $('cab' + s).children[1];
+  lg.className = 'lg ' + r.l;
+  lg.textContent = r.l;
+  $('cod' + s).innerHTML = r.c.map((x, k) =>
+    '<div class="ln" data-k="' + k + '"><span class="no">' + (k + 1) + '</span><span class="tx" style="--linha:' + k + '">' + hl(x) + '</span></div>'
+  ).join('');
+}
+$('bLados').addEventListener('pointerdown', (e) => {
+  const d = e.target.closest('.ln');
+  if (!d || !B || !B.on) return;
+  const s = +d.closest('.lado').dataset.s, k = +d.dataset.k;
+  if (B.respondidos[s]) return;
+  const r = B.perguntas[s], certo = k === r.a;
+  if (!certo) {
+    B.errosLinha[s].add(k);
+    B.etapaLogs[B.etapa][s].push({ certo: false, linha: k, idioma: r.l, pts: 0 });
+    B.respondidos[s] = true;
+    B.sequencia[s] = 0;
+    tocarSfx('sfxErrado');
+    const token = B.token, partida = B;
+    setTimeout(() => bNovaPergunta(s, token, partida), 350);
+    return;
+  }
+  B.respondidos[s] = true;
+  B.sequencia[s]++;
+  const multiplicador = B.etapa === 2 ? Math.min(3, 1 + Math.floor((B.sequencia[s] - 1) / 3)) : 1;
+  const valor = (B.etapa === 2 ? 2 : 1) * multiplicador;
+  B.etapaLogs[B.etapa][s].push({ certo: true, linha: k, idioma: r.l, pts: valor, multiplicador });
+  B.pts[s] += valor;
+  B.etapaPontos[B.etapa][s] += valor;
+  $('cab' + s).children[0].textContent = B.j[s] + ' · ' + B.pts[s] + ' pts';
+  tocarSfx('sfxCerto');
+  const token = B.token, partida = B;
+  setTimeout(() => bNovaPergunta(s, token, partida), 350);
+});
+function bFimEtapa(token, partida) {
+  if (B !== partida || token !== B.token || !B.on) return;
   B.on = false;
-  B.cong = [0, 0];
-  B.T = B.t = f.t;
-  $("bBarra").style.width = "100%";
-  $("bBarra").className = "";
-  $("bInfo").textContent = "Round " + (B.r + 1) + "/5 · " + f.n;
-  $("bLados").style.setProperty("--fw", 45 / (cols * 0.6) + "vw");
-  $("bLados").style.setProperty("--fh", (58 / r.c.length - 1) / 1.35 + "vh");
-  [0, 1].forEach((s) => {
-    $("lado" + s).classList.remove("gelado");
-    $("cab" + s).innerHTML =
-      `<span>${esc(B.j[s])} ${"●".repeat(B.pts[s])}${"○".repeat(3 - B.pts[s])}</span><span class="lg">?</span>`;
-    $("cod" + s).innerHTML = '<div style="text-align:center;font-size:14vh;opacity:.35">🎃</div>';
-  });
-  $("bMsg").textContent = "Round " + (B.r + 1) + ": " + f.n;
-  setTimeout(() => {
-    if (B !== tok) return;
-    $("bMsg").textContent = "JÁ!";
-    setTimeout(() => {
-      if (B !== tok) return;
-      $("bMsg").textContent = "";
-      bRevelar(r);
-      B.on = true;
-      B.last = performance.now();
-    }, 700);
-  }, 1500);
+  clearTimeout(B.timerPergunta);
+  const etapa = B.etapa;
+  B.prontos = [false, false];
+  if (etapa < 2) {
+    $('resTitulo').textContent = 'Etapa ' + (etapa + 1) + ' concluída';
+    $('resSub').textContent = 'Confirme quando estiver pronto. A próxima etapa começa depois que os dois confirmarem.';
+    $('resPlacar').innerHTML = '';
+    $('resProntos').innerHTML = [0, 1].map((s) => '<button class="btn pronto" data-ready="' + s + '">' + esc(B.j[s]) + ': pronto para a próxima etapa</button>').join('');
+    show('resumo');
+    return;
+  }
+  setTimeout(() => { if (B === partida) bFim(); }, 2200);
 }
-function bRevelar(r) {
-  /* o código só aparece quando os toques são liberados */
-  [0, 1].forEach((s) => {
-    const lg = $("cab" + s).children[1];
-    lg.className = "lg " + r.l;
-    lg.textContent = r.l;
-    $("cod" + s).innerHTML = r.c
-      .map(
-        (x, k) =>
-          `<div class="ln" data-k="${k}"><span class="no">${k + 1}</span><span class="tx">${hl(x)}</span></div>`,
-      )
-      .join("");
-  });
-}
-$("bLados").addEventListener("pointerdown", (e) => {
-  const d = e.target.closest(".ln");
-  if (!d || !B || !B.on || d.classList.contains("x")) return;
-  const s = +d.closest(".lado").dataset.s,
-    agora = performance.now();
-  if (B.cong[s] > agora) return;
-  if (+d.dataset.k === B.rod[B.r].a) bFimRound(s);
-  else {
-    d.classList.add("x");
-    B.cong[s] = agora + 2000;
-    $("lado" + s).classList.add("gelado");
-    const tok = B;
+$('resProntos').addEventListener('click', (e) => {
+  const botao = e.target.closest('[data-ready]');
+  if (!botao || !B || B.etapa >= 2) return;
+  const s = +botao.dataset.ready;
+  if (B.prontos[s]) return;
+  B.prontos[s] = true;
+  botao.disabled = true;
+  botao.textContent = B.j[s] + ': pronto!';
+  if (B.prontos[0] && B.prontos[1]) {
+    $('resSub').textContent = 'A trilha termina e a próxima etapa começa em alguns segundos...';
+    const jogo = B;
     setTimeout(() => {
-      if (B === tok) $("lado" + s).classList.remove("gelado");
-    }, 2000);
+      if (B !== jogo) return;
+      B.etapa++;
+      bRound();
+    }, 5200);
   }
 });
-function bFimRound(s) {
-  const tok = B,
-    r = B.rod[B.r];
-  B.on = false;
-  if (s >= 0) B.pts[s]++;
-  [0, 1].forEach((k) => {
-    $("lado" + k).classList.remove("gelado");
-    const d = $("cod" + k).children[r.a];
-    d.classList.add("ok");
-    d.querySelector(".tx").insertAdjacentHTML("beforeend", `<b class="semi">${r.m}</b>`);
-    $("cab" + k).children[0].textContent =
-      B.j[k] + " " + "●".repeat(B.pts[k]) + "○".repeat(3 - B.pts[k]);
-  });
-  $("bMsg").textContent = s < 0 ? "⏰ Tempo esgotado! Ninguém pontuou" : B.j[s] + " levou o round!";
-  setTimeout(() => {
-    if (B !== tok) return;
-    B.r++;
-    B.pts[0] >= 3 || B.pts[1] >= 3 || B.r >= 5 ? bFim() : bRound();
-  }, 2200);
-}
+$('resSair').onclick = home;
+
 function bFim() {
+  const [a, b] = B.pts;
+  const [n1, n2] = B.j;
+  const partida = B;
+  $("fbT").textContent = "Contagem final";
+  $("fbP").textContent = "Vamos rever os três rounds.";
+  const linhasResultado = B.etapaLogs.map((round, k) => {
+    const celulas = [0, 1].map((s) => {
+      const logs = round[s];
+      const acertos = logs.filter((x) => x.certo).length;
+      const erros = logs.length - acertos;
+      const melhorMultiplicador = Math.max(1, ...logs.map((x) => x.multiplicador || 1));
+      return '<td>' + acertos + ' acertos · ' + erros + ' erros' + (k === 2 ? ' · combo x' + melhorMultiplicador : '') +
+        '<strong>+' + B.etapaPontos[k][s] + ' pontos</strong></td>';
+    }).join('');
+    return '<tr><th>Round ' + (k + 1) + '<small>' + esc(P[k].n) + '</small></th>' + celulas + '</tr>';
+  }).join('');
+  $("finalResumo").innerHTML = '<table class="placarFinal"><thead><tr><th>Round</th><th>' + esc(n1) + '</th><th>' + esc(n2) + '</th></tr></thead><tbody>' + linhasResultado + '</tbody></table>';
+  show("fimBat");
+  setTimeout(() => {
+    if (B !== partida) return;
+    $("fbP").textContent = n1 + " " + a + " pontos · " + b + " pontos " + n2;
+    $("fbT").textContent = "E o vencedor é...";
+  }, 2200);
+  setTimeout(() => {
+    if (B !== partida) return;
+    $("fbT").textContent = a === b ? "Empate" : (a > b ? n1 : n2) + " venceu";
+  }, 4200);
+  if (torneioAtivo) setTimeout(() => { if (B === partida && torneioAtivo) resolverFim(); }, 6500);
+  else idle = setTimeout(home, 25000);
+}
+function resolverFim() {
   const [a, b] = B.pts,
     [n1, n2] = B.j;
-  $("fbT").textContent = a === b ? "Empate! 🤝" : (a > b ? n1 : n2) + " venceu! 🏆";
+  if (torneioAtivo) {
+    const vencedor = a === b ? null : a > b ? n1 : n2;
+    B.on = false;
+    if (!vencedor) {
+      $("fbT").textContent = "Empate! Confronto decisivo";
+      $("fbP").textContent = "A partida será repetida para definir quem avança.";
+      $("vsN1").textContent = n1;
+      $("vsN2").textContent = n2;
+      show("telaVS");
+      return;
+    }
+    if (vencedor) torneioAtivo.vencedores.push(vencedor);
+    const proximo = proximoJogoTorneio();
+    if (proximo) {
+      $("fbT").textContent = "Próximo confronto";
+      $("fbP").textContent = torneioAtivo.jogos.length + " confronto(s) restantes nesta fase.";
+      $("vsN1").textContent = proximo[0];
+      $("vsN2").textContent = proximo[1];
+      show("telaVS");
+      return;
+    }
+    if (torneioAtivo.jogadores.length === 1) {
+      $("fbT").textContent = torneioAtivo.jogadores[0] + " venceu o torneio!";
+      $("fbP").textContent = "Campeão do torneio eliminatório.";
+      torneioAtivo = null;
+      show("fimBat");
+      idle = setTimeout(home, 25000);
+      return;
+    }
+    torneioAtivo.jogadores = torneioAtivo.vencedores;
+    torneioAtivo.vencedores = [];
+    if (torneioAtivo.jogadores.length === 1) {
+      $("fbT").textContent = torneioAtivo.jogadores[0] + " venceu o torneio!";
+      $("fbP").textContent = "Campeão do torneio eliminatório.";
+      torneioAtivo = null;
+      show("fimBat");
+      idle = setTimeout(home, 25000);
+      return;
+    }
+    montarJogosTorneio();
+    const p = torneioAtivo.jogos[0];
+    torneioAtivo.indice = 0;
+    if (p) {
+      $("fbT").textContent = "Nova fase do torneio";
+      $("fbP").textContent = torneioAtivo.jogadores.length + " jogadores restantes.";
+      $("vsN1").textContent = p[0];
+      $("vsN2").textContent = p[1];
+      show("telaVS");
+      return;
+    }
+  }
+  $("fbT").textContent = a === b ? "Empate" : (a > b ? n1 : n2) + " venceu";
   $("fbP").innerHTML = "<b>" + esc(n1) + "</b> " + a + " × " + b + " <b>" + esc(n2) + "</b>";
   show("fimBat");
   idle = setTimeout(home, 25000);
 }
 setInterval(() => {
   if (!B || !B.on) return;
-  const n = performance.now();
-  B.t -= (n - B.last) / 1000;
-  B.last = n;
-  $("bBarra").style.width = (Math.max(0, B.t) / B.T) * 100 + "%";
-  $("bBarra").className = B.t < B.T * 0.35 ? "low" : "";
-  if (B.t <= 0) bFimRound(-1);
+  const audio = $("musicaDesafio");
+  const duracao = Number.isFinite(audio.duration) ? Math.max(1, audio.duration - 2) : 180;
+  const restante = Math.max(0, duracao - audio.currentTime);
+  const perigo = Math.min(1, Math.max(0, 1 - restante / duracao));
+  [0, 1].forEach((s) => {
+    $("lado" + s).style.setProperty("--perigo-bg", (100 * perigo).toFixed(1) + "%");
+  });
 }, 100);
-$("vsGo").onclick = () => {
-  show("batalha");
+function iniciarConfrontoAtual() {
+  if (torneioAtivo) {
+    const par = torneioAtivo.jogos[torneioAtivo.indice];
+    iniciarBatalha({ n: par[0] }, { n: par[1] });
+  }
+  const lados = $("bLados");
+  lados.classList.remove("dividindo");
+  void lados.offsetWidth;
+  lados.classList.add("dividindo");
   bRound();
+}
+$("vsGo").onclick = () => {
+  $("musicaMenu").pause();
+  if (!tutorialBatalhaVisto) {
+    iniciarTutorialBatalha(iniciarConfrontoAtual);
+  } else iniciarConfrontoAtual();
 };
+$("demoAnt").onclick = () => {
+  if (demoIndice > 0) { demoIndice--; mostraDemoBatalha(); }
+};
+$("demoProx").onclick = () => {
+  if (demoIndice < TUT_BATALHA.length - 1) { demoIndice++; mostraDemoBatalha(); }
+};
+$("demoOk").onclick = fecharTutorialBatalha;
+$("demoSair").onclick = home;
 $("vsVoltar").onclick = home;
 $("fbInicio").onclick = home;
 $("revanche").onclick = () => {

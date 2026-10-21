@@ -524,23 +524,6 @@ i.n {
   font-size: 3.6vh;
   font-weight: 700;
 }
-#bBF {
-  width: 100%;
-  height: 2.6vh;
-  background: #2a1a3d;
-  border: 2px solid var(--pu);
-  border-radius: 2vh;
-  overflow: hidden;
-}
-#bBarra {
-  height: 100%;
-  background: linear-gradient(90deg, var(--gr), #ffd166);
-  transition: width 0.1s linear;
-}
-#bBarra.low {
-  background: linear-gradient(90deg, var(--rd), var(--or));
-  animation: bl 0.5s infinite;
-}
 #bLados {
   flex: 1;
   min-height: 0;
@@ -553,18 +536,13 @@ i.n {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  background: var(--panel);
+  background: color-mix(in srgb, var(--panel) calc(100% - var(--perigo-bg, 0%)), #ff263f var(--perigo-bg, 0%));
   border: 0.5vh solid var(--pu);
   border-radius: 2.2vh;
+  transition: background-color .2s linear;
   padding: 1.2vh 1vw;
   position: relative;
   text-align: left;
-}
-#lado0 {
-  border-color: var(--or);
-}
-#lado1 {
-  border-color: #4fb3ff;
 }
 .cab {
   display: flex;
@@ -586,6 +564,13 @@ i.n {
   padding: 0.4vh 0.6vw;
   font-size: min(var(--fw, 2vw), var(--fh, 4vh), 4.4vh);
 }
+.lado .ln .tx {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  animation: digitar .72s steps(28, end) forwards;
+  animation-delay: calc(var(--linha, 0) * 55ms);
+}
+@keyframes digitar { to { clip-path: inset(0 0 0 0); } }
 .lg {
   padding: 0.3vh 1vw;
   border-radius: 1.2vh;
@@ -593,7 +578,7 @@ i.n {
   font-size: 3vh;
 }
 .lado.gelado::after {
-  content: "🥶 congelado!";
+  content: "congelado!";
   position: absolute;
   inset: 0;
   display: flex;
@@ -627,4 +612,133 @@ i.n {
   .dec {
     animation: none !important;
   }
+}
+#torLista {
+  width: min(70vw, 900px);
+  max-height: 45vh;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2vh 1vw;
+  font-size: 3vh;
+}
+.torItem {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  padding: 1.2vh 1vw;
+  background: var(--panel);
+  border: 2px solid var(--pu);
+  border-radius: 1vh;
+}
+.torItem input { width: 3vh; height: 3vh; accent-color: var(--or); }
+#torMsg { color: var(--rd); font-size: 2.8vh; }
+#resumo { gap: 2vh; }
+#resSub { max-width: 90vw; }
+#resPlacar {
+  width: min(86vw, 1200px);
+  max-height: 58vh;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2vh 2vw;
+}
+.resJogador { background: var(--panel); border: 2px solid var(--pu); border-radius: 1.5vh; padding: 1.6vh 1.5vw; }
+.resJogador h3 { font-size: 3.5vh; margin: 0 0 1.4vh; }
+.trilhaRes { min-height: 3.2vh; display: flex; flex-wrap: wrap; gap: 0.45vh; align-content: center; }
+.marca { flex: 1 1 1.2vh; max-width: 3vh; height: 2.5vh; border-radius: 0.4vh; }
+.marca.certo { background: var(--gr); box-shadow: 0 0 1vh #7cff6b88; }
+.marca.errado { background: var(--rd); box-shadow: 0 0 1vh #ff4d5e88; }
+.semRes { color: var(--mut); font-size: 2.3vh; }
+.textoCerto { color: var(--gr) !important; }
+.textoErrado { color: var(--rd) !important; }
+.resJogador p { margin-top: 1.3vh; font-size: 2.5vh; }
+#resProntos { display: flex; flex-wrap: wrap; justify-content: center; gap: 1vh 1vw; }
+#resProntos .btn { font-size: 2.6vh; }
+#resSair { margin-top: 0.5vh; }
+#demoBatalha { overflow-y: auto; padding: 3vh 5vw; }
+.tutCard { width: min(86vw, 1250px); max-height: 94vh; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 1.6vh; padding: 2.4vh 3vw; border: 2px solid var(--pu); border-radius: 2vh; background: linear-gradient(145deg, #211331, #100a19); box-shadow: 0 0 8vh #9b5cff44; }
+.demoCab { width: 100%; display: flex; justify-content: space-between; color: var(--mut); font-size: 2.2vh; letter-spacing: .12em; }
+#demoTitulo { margin: 0; color: var(--or); font: 6vh Creepster, fantasy; }
+#demoTexto { max-width: 75ch; font-size: 2.7vh; line-height: 1.4; margin: 0; }
+.demoPalco { width: min(72vw, 980px); min-height: 30vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #9b5cff88; border-radius: 1.4vh; background: radial-gradient(ellipse at 50% 0, #352148, #100a19 78%); }
+#demoVis { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1.4vh; padding: 2vh 2vw; box-sizing: border-box; }
+.demoJanela { width: min(100%, 760px); }
+.demoEtiqueta { color: var(--or); font-weight: 700; font-size: 2.1vh; margin-bottom: 1vh; }
+.demoCodigo { text-align: left; font-size: 2.6vh; }
+.demoLinha { position: relative; display: flex; gap: 1vw; padding: .55vh .8vw; border-radius: .5vh; color: var(--ink); transition: background .25s, box-shadow .25s; }
+.demoLinha .no { color: var(--mut); min-width: 2ch; text-align: right; }
+.demoLinha.alvo { background: #9b5cff22; }
+.demoLinha.demoAcerto { background: #7cff6b26; box-shadow: inset 0 0 0 2px var(--gr); }
+.demoLinha.demoErro { background: #ff4d5e26; box-shadow: inset 0 0 0 2px var(--rd); }
+.demoResultado, .demoLegenda { min-height: 2.8vh; color: var(--mut); font-size: 2.2vh; margin-top: 1vh; }
+#demoCursor { position: absolute; z-index: 2; left: 50%; top: 50%; opacity: 0; font-size: 6vh; pointer-events: none; transform: translate(-15%, -15%); transition: left .45s ease, top .45s ease, opacity .2s; filter: drop-shadow(0 .4vh .3vh #000); }
+#demoCursor.visivel { opacity: 1; }
+#demoCursor.tocando { animation: demoTap .25s ease-in-out 2; }
+@keyframes demoTap { 50% { transform: translate(-15%, 8%) scale(.88); } }
+.demoBarra { height: 1.5vh; width: 100%; background: #332345; border-radius: 2vh; overflow: hidden; margin-top: 2vh; }
+.demoBarra span { display: block; width: 80%; height: 100%; background: linear-gradient(90deg, var(--gr), var(--or)); animation: demoTempo 5s linear infinite; }
+@keyframes demoTempo { to { width: 0; } }
+.demoResumo { width: min(100%, 720px); display: grid; gap: .8vh; }
+.demoResumo div { display: grid; grid-template-columns: .7fr 1.4fr 1.4fr; align-items: center; gap: 1vw; padding: 1vh 1.2vw; border-radius: .7vh; background: #ffffff0b; font-size: 2.1vh; }
+.demoResumoCab { color: var(--or); border-bottom: 1px solid #9b5cff88; }
+.demoResumo .final { border: 2px solid var(--or); color: var(--or); }
+.demoTroca { animation: finalEntrada .5s ease-out both; }
+.demoVerde, .demoVermelho { display: inline-block; width: 2.2vh; height: 2.2vh; border-radius: .4vh; vertical-align: middle; }
+.demoVerde { background: var(--gr); }
+.demoVermelho { background: var(--rd); }
+#demoPontos { display: flex; gap: 1vh; }
+.demoDot { width: 1.4vh; height: 1.4vh; border-radius: 50%; background: #645278; }
+.demoDot.ativo { background: var(--or); box-shadow: 0 0 1.5vh var(--or); }
+#demoBatalha .acts { gap: 1vw; }
+#telaVS.on .vs { animation: palcoEntrada 1.1s cubic-bezier(.2,.75,.25,1) both; }
+#telaVS.on .vs span:first-child, #telaVS.on .vs span:last-child { text-shadow: 0 0 2vh var(--or); }
+#telaVS.on .vs::before { content: "PALCO EM PREPARAÇÃO"; position: absolute; top: -5vh; left: 50%; transform: translateX(-50%); font-size: 1.7vh; letter-spacing: .2em; color: var(--mut); animation: luzPalco 1.8s ease-in-out infinite alternate; }
+.vs { position: relative; }
+@keyframes palcoEntrada { from { opacity: .25; transform: translateY(2vh) scale(.94); filter: blur(5px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes luzPalco { to { color: var(--or); text-shadow: 0 0 1.5vh var(--or); } }
+#demoBatalha button:disabled { opacity: .4; }
+#bLados.dividindo .lado { animation-duration: .85s; animation-timing-function: cubic-bezier(.2,.75,.25,1); }
+#bLados.dividindo #lado0 { animation-name: dividirEsquerda; }
+#bLados.dividindo #lado1 { animation-name: dividirDireita; }
+@keyframes dividirEsquerda { from { transform: translateX(42vw) scale(.92); opacity: .35; } to { transform: translateX(0) scale(1); opacity: 1; } }
+@keyframes dividirDireita { from { transform: translateX(-42vw) scale(.92); opacity: .35; } to { transform: translateX(0) scale(1); opacity: 1; } }
+#demoProx[hidden], #demoOk[hidden] { display: none; }
+.demoConfirma { display: flex; flex-wrap: wrap; justify-content: center; gap: 1vh 2vw; margin-top: 1vh; font-size: 2vh; }
+.demoConfirma span { padding: .8vh 1vw; border: 1px solid var(--gr); border-radius: 1vh; color: var(--gr); animation: demoPronto 2.4s ease-in-out infinite alternate; }
+.demoConfirma span:nth-child(2) { animation-delay: .8s; }
+@keyframes demoPronto { to { background: #7cff6b1a; box-shadow: 0 0 1.5vh #7cff6b66; } }
+.jogadorItem { min-width: 0; display: flex; flex-direction: column; gap: .6vh; }
+.jogadorItem .pb { width: 100%; cursor: pointer; }
+.acoesJogador { display: flex; gap: .5vw; }
+.acaoJogador { flex: 1; min-height: 4vh; padding: .5vh .35vw; border: 1px solid var(--pu); border-radius: .8vh; background: #211331; color: var(--ink); font: inherit; font-size: 1.5vh; cursor: pointer; }
+.acaoJogador.excluir { border-color: #a83b4a; color: #ffb3ba; }
+.listaVazia { grid-column: 1 / -1; color: var(--mut); }
+#config { gap: 2.2vh; }
+#config .big { font-size: 10vh; }
+.configLista { width: min(78vw, 900px); display: grid; gap: 1.8vh; text-align: left; }
+.configLista label { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .8vh 1vw; padding: 1.1vh 1.2vw; border: 1px solid #9b5cff66; border-radius: 1vh; background: var(--panel); font-size: 2.5vh; }
+.configLista output { color: var(--or); font-weight: 700; }
+.configLista input { grid-column: 1 / -1; width: 100%; accent-color: var(--or); cursor: pointer; }
+#config > p { font-size: 2.5vh; }
+#resumo, #fimBat { background: var(--bg); }
+#fimBat { overflow-y: auto; padding: 3vh 5vw; gap: 2vh; }
+#fimBat .big { font-size: 10vh; }
+#finalResumo { width: min(86vw, 1000px); max-height: 48vh; overflow-y: auto; }
+.placarFinal { width: 100%; border-collapse: collapse; background: var(--panel); text-align: left; font-size: 2.2vh; }
+.placarFinal th, .placarFinal td { padding: 1.2vh 1.2vw; border-bottom: 1px solid #9b5cff55; }
+.placarFinal thead th { color: var(--or); background: #251735; }
+.placarFinal tbody th { color: var(--ink); white-space: nowrap; }
+.placarFinal tbody th small { display: block; margin-top: .3vh; color: var(--mut); font-size: .8em; font-weight: 400; }
+.placarFinal td { color: var(--mut); }
+.placarFinal td strong { display: block; margin-top: .3vh; color: var(--gr); }
+@media (max-width: 760px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .acaoJogador { font-size: 1.8vh; }
+  .configLista { width: 90vw; }
+  .configLista label { font-size: 2vh; }
+  #config .big { font-size: 8vh; }
+  .placarFinal { font-size: 1.7vh; }
+  .placarFinal th, .placarFinal td { padding: 1vh 1vw; }
+  .demoResumo div { font-size: 1.5vh; gap: .5vw; padding: .7vh .6vw; }
 }

@@ -1,4 +1,4 @@
-# 🎃 Caça ao Ponto e Vírgula
+# Caça ao Ponto e Vírgula
 
 Jogo de Halloween feito para um evento da faculdade, pensado para uma **TV touch na horizontal**.
 Aparece um código com um erro, e o jogador precisa tocar na linha em que falta:
@@ -12,9 +12,8 @@ Aparece um código com um erro, e o jogador precisa tocar na linha em que falta:
 
 - **Solo:** 3 fases (Fácil, Médio e Difícil) com 3 códigos cada, um de cada linguagem.
   O tempo é **por código**: 30s no Fácil, 15s no Médio e 10s no Difícil. Cada erro tira 5s e bloqueia a linha.
-- **Batalha (2 jogadores):** tela dividida, os dois veem o mesmo código e quem tocar primeiro na linha certa leva o round.
-  Quem erra fica congelado por 2s. Melhor de 5 rounds.
-- **Tutorial:** botão "Como jogar" na tela inicial. Aparece sozinho para jogador novo.
+- **Batalha (2 jogadores):** modo principal, com tela dividida e códigos próprios para cada pessoa. São 3 rounds com trilha, sem cronômetro por pergunta. Ao errar, o código avança e não pontua. Entre rounds aparece apenas a confirmação; a contagem de acertos, erros e pontos dos três rounds aparece no final, antes da revelação do vencedor. No Difícil cada acerto vale 2 pontos; sequências de 4 e 7 acertos sobem para 4 e 6 pontos por acerto, até o fim do round.
+- **Tutorial:** demonstra o erro avançando para um novo código e a contagem final com suspense antes do primeiro confronto. O Solo começa direto como treino silencioso.
 - **Ranking:** cada jogador cadastra um nome (teclado virtual) e o melhor placar dele entra no ranking.
 
 ### Pontuação (solo)
@@ -29,7 +28,7 @@ Por código acertado: `(base + velocidade + sem erros) × multiplicador de sequ�
 | Sequência | ×1,1, ×1,2... até ×1,5 enquanto acerta seguido (erro zera) |
 | Vitória | +500 para quem zera as 3 fases |
 
-Os valores ficam nas constantes `PESO` e `PTS` de `js/jogo.js`.
+No solo, os valores ficam nas constantes `PESO` e `PTS` de `js/jogo.js`. Na batalha, cada acerto vale 1 ponto nas duas primeiras etapas e 2 pontos na etapa final. Os áudios ficam em `sfx/` (menu, desafio e efeitos de acerto/erro).
 
 ## Rodando
 
