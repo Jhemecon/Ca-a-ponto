@@ -430,7 +430,7 @@ $("volPadrao").onclick = () => {
     salvarConfiguracao();
   });
 });
-$("newp").onclick = nameScr;
+$("newp").onclick = () => nameScr();
 $("back").onclick = home;
 $("nback").onclick = () => (PL.length ? who() : home());
 $("pl").addEventListener("click", (e) => {
@@ -443,7 +443,17 @@ $("pl").addEventListener("click", (e) => {
   const excluir = e.target.closest("[data-excluir]");
   if (excluir) {
     const jogador = PL.find((p) => p.n === excluir.dataset.excluir);
-    if (!jogador || !confirm("Excluir o jogador " + jogador.n + "? O recorde dele também será removido.")) return;
+    if (!jogador) return;
+    if (excluir.dataset.confirmar !== "sim") {
+      excluir.dataset.confirmar = "sim";
+      excluir.textContent = "Confirmar?";
+      setTimeout(() => {
+        if (!excluir.isConnected || excluir.dataset.confirmar !== "sim") return;
+        delete excluir.dataset.confirmar;
+        excluir.textContent = "Excluir";
+      }, 4000);
+      return;
+    }
     PL = PL.filter((p) => p !== jogador);
     if (cur === jogador) cur = null;
     save();
@@ -757,7 +767,7 @@ function bRound() {
     $('bMsg').textContent = 'Não foi possível tocar a trilha. A etapa seguirá sem áudio.';
     iniciarRelogio();
   });
-  if (Number.isFinite(musica.duration)) iniciarRelogio();
+  iniciarRelogio();
 }
 function bNovaPergunta(s, token, partida) {
   if (B !== partida || token !== B.token || !B.on) return;
