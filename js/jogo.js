@@ -34,7 +34,26 @@ const PESO = [1, 1.5, 2],
 let torneioAtivo = null,
   tutorialBatalhaVisto = false,
   demoAoConcluir = null,
-  demoTimer = 0;
+  demoTimer = 0,
+  audioCtx = null;
+function desbloquearAudio() {
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (AC && !audioCtx) audioCtx = new AC();
+  if (audioCtx && audioCtx.state === "suspended") {
+    audioCtx.resume().catch(() => {});
+  }
+  document.querySelectorAll("audio").forEach((audio) => {
+    try {
+      audio.muted = false;
+      if (audio.paused) {
+        const tocando = audio.play();
+        if (tocando) tocando.catch(() => {});
+      }
+    } catch (e) {}
+  });
+}
+document.addEventListener("pointerdown", desbloquearAudio, { once: true, passive: true });
+document.addEventListener("click", desbloquearAudio, { once: true, passive: true });
 function montarJogosTorneio() {
   torneioAtivo.jogos = [];
   torneioAtivo.indice = 0;
@@ -201,12 +220,36 @@ const shuffle = (a) =>
 function show(id) {
   document.querySelectorAll(".scr").forEach((s) => s.classList.toggle("on", s.id === id));
 }
-function tocarMenu() {
-  const audio = $("musicaMenu");
+function pararMusica(id) {
+  const audio = $(id);
   if (!audio) return;
-  audio.volume = configuracao.menu;
+  try {
+    audio.pause();
+    audio.currentTime = 0;
+  } catch (e) {}
+}
+function tocarMusica(id, { volume = 0.5, loop = false, resetar = true } = {}) {
+  const audio = $(id);
+  if (!audio) return null;
+  audio.volume = Number.isFinite(volume) ? volume : audio.volume;
+  audio.loop = !!loop;
+  if (resetar) {
+    try {
+      audio.pause();
+      audio.currentTime = 0;
+    } catch (e) {}
+  }
   const tocando = audio.play();
   if (tocando) tocando.catch(() => {});
+  return audio;
+}
+function tocarMenu() {
+  pararMusica("musicaDesafio");
+  tocarMusica("musicaMenu", { volume: configuracao.menu, loop: true, resetar: false });
+}
+function iniciarTrilhaSolo() {
+  pararMusica("musicaMenu");
+  tocarMusica("musicaDesafio", { volume: configuracao.batalha, loop: true, resetar: true });
 }
 function say(m, c) {
   $("msg").textContent = m;
@@ -227,7 +270,8 @@ function shake() {
 }
 function start() {
   clearTimeout(idle);
-  $("musicaMenu").pause();
+  pararMusica("musicaMenu");
+  if (modo === "solo") iniciarTrilhaSolo();
   order = P.flatMap((p, k) =>
     shuffle(["C", "Java", "Python"].map((l) => sorteia(p.s.filter((r) => r.l === l)))).map((r) => ({
       ...r,
@@ -302,6 +346,7 @@ function pick(k, d) {
         : "Achou! Sem esse ; o compilador solta um grito de terror.",
       "ok-t",
     );
+    tocarSfx("sfxCerto");
     setTimeout(() => {
       i++;
       i >= TOT ? end(1) : go();
@@ -314,6 +359,7 @@ function pick(k, d) {
     shake();
     d.classList.add("x");
     say("Essa linha está certa! Procure em outra.", "bad-t");
+    tocarSfx("sfxErrado");
     if (t <= 0) end(0);
   }
 }
@@ -415,6 +461,7 @@ $("btnTut").onclick = () => {
   tutorial(home);
 };
 $("btnConfig").onclick = () => {
+  pararMusica("musicaDesafio");
   tocarMenu();
   atualizarControlesVolume();
   show("config");
@@ -522,7 +569,7 @@ const TUT = [
   },
   {
     t: "Treino com calma",
-    h: "No Solo, o tempo é por código: <b>30s</b> no Fácil, <b>15s</b> no Médio e <b>10s</b> no Difícil. Cada erro tira <b>5s</b> e bloqueia aquela linha. O Solo não toca música nem efeitos sonoros.",
+    h: "No Solo, o tempo é por código: <b>30s</b> no Fácil, <b>15s</b> no Médio e <b>10s</b> no Difícil. Cada erro tira <b>5s</b> e bloqueia aquela linha. A trilha de batalha fica ativa em segundo plano para manter o ritmo do treino.",
   },
   {
     t: "Pontos e batalha",
@@ -531,7 +578,6 @@ const TUT = [
 ];let tp = 0,
   tOk = false;
 function tutorial(depois) {
-  $("musicaMenu").pause();
   tutDepois = depois;
   tp = 0;
   mostraTut();
@@ -624,13 +670,8 @@ const TUT_BATALHA = [
 function iniciarTutorialBatalha(depois) {
   demoAoConcluir = depois;
   demoIndice = 0;
-  $("musicaMenu").pause();
-  const musica = $("musicaDesafio");
-  musica.volume = configuracao.tutorial;
-  musica.loop = true;
-  try { musica.currentTime = 0; } catch (e) {}
-  const tocando = musica.play();
-  if (tocando) tocando.catch(() => {});
+  pararMusica("musicaMenu");
+  tocarMusica("musicaDesafio", { volume: configuracao.tutorial, loop: true, resetar: true });
   mostraDemoBatalha();
 }
 let demoIndice = 0;
@@ -713,11 +754,7 @@ function demoPontuacaoFinal() {
 function fecharTutorialBatalha() {
   clearTimeout(demoTimer);
   $("demoCursor").classList.remove("visivel", "tocando");
-  const musica = $("musicaDesafio");
-  musica.pause();
-  musica.loop = false;
-  musica.volume = configuracao.batalha;
-  try { musica.currentTime = 0; } catch (e) {}
+  pararMusica("musicaDesafio");
   const seguir = demoAoConcluir;
   demoAoConcluir = null;
   tutorialBatalhaVisto = true;
@@ -727,14 +764,18 @@ function tocarSfx(id) {
   const som = $(id);
   if (!som) return;
   try {
-    som.pause(); som.currentTime = 0; som.volume = configuracao.sfx;
+    if (audioCtx && audioCtx.state === "suspended") audioCtx.resume().catch(() => {});
+    som.muted = false;
+    som.pause();
+    som.currentTime = 0;
+    som.volume = configuracao.sfx;
     const tocando = som.play();
     if (tocando) tocando.catch(() => {});
   } catch (e) {}
 }
 function bRound() {
   const partida = B, token = ++B.token, fase = P[B.etapa], musica = $('musicaDesafio');
-  $('musicaMenu').pause();
+  pararMusica("musicaMenu");
   musica.volume = configuracao.batalha;
   musica.loop = false;
   B.on = true;
@@ -749,8 +790,7 @@ function bRound() {
   $('bMsg').textContent = '';
   show('batalha');
   [0, 1].forEach((s) => bNovaPergunta(s, token, partida));
-  musica.pause();
-  try { musica.currentTime = 0; } catch (e) {}
+  tocarMusica("musicaDesafio", { volume: configuracao.batalha, loop: false, resetar: true });
   const iniciarRelogio = () => {
     if (B !== partida || token !== B.token || !B.on) return;
     const duracao = Number.isFinite(musica.duration) ? musica.duration : 180;

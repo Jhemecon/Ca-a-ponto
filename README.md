@@ -13,7 +13,7 @@ Aparece um código com um erro, e o jogador precisa tocar na linha em que falta:
 - **Solo:** 3 fases (Fácil, Médio e Difícil) com 3 códigos cada, um de cada linguagem.
   O tempo é **por código**: 30s no Fácil, 15s no Médio e 10s no Difícil. Cada erro tira 5s e bloqueia a linha.
 - **Batalha (2 jogadores):** modo principal, com tela dividida e códigos próprios para cada pessoa. São 3 rounds com trilha, sem cronômetro por pergunta. Ao errar, o código avança e não pontua. Entre rounds aparece apenas a confirmação; a contagem de acertos, erros e pontos dos três rounds aparece no final, antes da revelação do vencedor. No Difícil cada acerto vale 2 pontos; sequências de 4 e 7 acertos sobem para 4 e 6 pontos por acerto, até o fim do round.
-- **Tutorial:** demonstra o erro avançando para um novo código e a contagem final com suspense antes do primeiro confronto. O Solo começa direto como treino silencioso.
+- **Tutorial:** demonstra o erro avançando para um novo código e a contagem final com suspense antes do primeiro confronto. O Solo começa direto com a trilha de batalha em segundo plano.
 - **Ranking:** cada jogador cadastra um nome (teclado virtual) e o melhor placar dele entra no ranking.
 
 ### Pontuação (solo)
