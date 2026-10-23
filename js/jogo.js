@@ -30,7 +30,18 @@ const hl = (x) =>
     .replace(/>/g, "&gt;")
     .replace(KW, (m, a, b) => `<i class="${a ? "s" : b ? "n" : "k"}">${m}</i>`);
 const PESO = [1, 1.5, 2],
-  PTS = { base: 100, perfeito: 50, passo: 0.1, maxMult: 1.5, vitoria: 500 };
+  PTS = { base: 100, perfeito: 50, passo: 0.1, maxMult: 1.5, vitoria: 500 },
+  TEMPO = {
+    transicaoPergunta: 180,
+    transicaoEtapa: 700,
+    fimEtapa: 300,
+    resumoFinal: 500,
+    revelarVencedor: 900,
+    proximoConfronto: 1500,
+    retornoMenu: 0,
+  },
+  LIMITE_PERIGO_ETAPA = 0.8;
+
 let torneioAtivo = null,
   tutorialBatalhaVisto = false,
   demoAoConcluir = null,
@@ -647,6 +658,7 @@ function iniciarBatalha(a, b) {
     respondidos: [false, false], errosLinha: [new Set(), new Set()],
     etapaPontos: [[0, 0], [0, 0], [0, 0]], sequencia: [0, 0],
     etapaLogs: [[[], []], [[], []], [[], []]], timerEtapa: 0, timerPergunta: 0, token: 0,
+    tempoTotal: 18, tempoInicio: 0, alertaMostrado: false,
   };
   clearTimeout(idle);
   $('vsN1').textContent = a.n;
@@ -780,6 +792,9 @@ function bRound() {
   musica.loop = false;
   B.on = true;
   B.sequencia = [0, 0];
+  B.tempoTotal = 18;
+  B.tempoInicio = performance.now();
+  B.alertaMostrado = false;
   $('bInfo').textContent = 'Etapa ' + (B.etapa + 1) + '/3 · ' + fase.n + (B.etapa === 2 ? ' · PONTOS EM DOBRO' : '');
   [0, 1].forEach((s) => {
     $('lado' + s).style.setProperty('--perigo-bg', '0%');
@@ -793,16 +808,15 @@ function bRound() {
   tocarMusica("musicaDesafio", { volume: configuracao.batalha, loop: false, resetar: true });
   const iniciarRelogio = () => {
     if (B !== partida || token !== B.token || !B.on) return;
-    const duracao = Number.isFinite(musica.duration) ? musica.duration : 180;
     clearTimeout(B.timerEtapa);
-    const restante = duracao - 2 - musica.currentTime;
+    const restante = Math.max(0, B.tempoTotal - ((performance.now() - B.tempoInicio) / 1000));
     if (restante <= 0) return bFimEtapa(token, partida);
-    B.timerEtapa = setTimeout(() => bFimEtapa(token, partida), restante * 1000);
+    B.timerEtapa = setTimeout(() => bFimEtapa(token, partida), Math.max(250, restante * 1000));
   };
   musica.onloadedmetadata = iniciarRelogio;
   const tocando = musica.play();
   if (tocando) tocando.then(() => {
-    if (Number.isFinite(musica.duration)) iniciarRelogio();
+    iniciarRelogio();
   }).catch(() => {
     $('bMsg').textContent = 'Não foi possível tocar a trilha. A etapa seguirá sem áudio.';
     iniciarRelogio();
@@ -838,7 +852,7 @@ $('bLados').addEventListener('pointerdown', (e) => {
     B.sequencia[s] = 0;
     tocarSfx('sfxErrado');
     const token = B.token, partida = B;
-    setTimeout(() => bNovaPergunta(s, token, partida), 350);
+    setTimeout(() => bNovaPergunta(s, token, partida), TEMPO.transicaoPergunta);
     return;
   }
   B.respondidos[s] = true;
@@ -851,7 +865,7 @@ $('bLados').addEventListener('pointerdown', (e) => {
   $('cab' + s).children[0].textContent = B.j[s] + ' · ' + B.pts[s] + ' pts';
   tocarSfx('sfxCerto');
   const token = B.token, partida = B;
-  setTimeout(() => bNovaPergunta(s, token, partida), 350);
+  setTimeout(() => bNovaPergunta(s, token, partida), TEMPO.transicaoPergunta);
 });
 function bFimEtapa(token, partida) {
   if (B !== partida || token !== B.token || !B.on) return;
@@ -867,7 +881,7 @@ function bFimEtapa(token, partida) {
     show('resumo');
     return;
   }
-  setTimeout(() => { if (B === partida) bFim(); }, 2200);
+  setTimeout(() => { if (B === partida) bFim(); }, TEMPO.fimEtapa);
 }
 $('resProntos').addEventListener('click', (e) => {
   const botao = e.target.closest('[data-ready]');
@@ -884,7 +898,7 @@ $('resProntos').addEventListener('click', (e) => {
       if (B !== jogo) return;
       B.etapa++;
       bRound();
-    }, 5200);
+    }, TEMPO.transicaoEtapa);
   }
 });
 $('resSair').onclick = home;
@@ -912,13 +926,13 @@ function bFim() {
     if (B !== partida) return;
     $("fbP").textContent = n1 + " " + a + " pontos · " + b + " pontos " + n2;
     $("fbT").textContent = "E o vencedor é...";
-  }, 2200);
+  }, TEMPO.resumoFinal);
   setTimeout(() => {
     if (B !== partida) return;
     $("fbT").textContent = a === b ? "Empate" : (a > b ? n1 : n2) + " venceu";
-  }, 4200);
-  if (torneioAtivo) setTimeout(() => { if (B === partida && torneioAtivo) resolverFim(); }, 6500);
-  else idle = setTimeout(home, 25000);
+  }, TEMPO.revelarVencedor);
+  if (torneioAtivo) setTimeout(() => { if (B === partida && torneioAtivo) resolverFim(); }, TEMPO.proximoConfronto);
+  else if (TEMPO.retornoMenu > 0) idle = setTimeout(home, TEMPO.retornoMenu);
 }
 function resolverFim() {
   const [a, b] = B.pts,
@@ -949,7 +963,7 @@ function resolverFim() {
       $("fbP").textContent = "Campeão do torneio eliminatório.";
       torneioAtivo = null;
       show("fimBat");
-      idle = setTimeout(home, 25000);
+      if (TEMPO.retornoMenu > 0) idle = setTimeout(home, TEMPO.retornoMenu);
       return;
     }
     torneioAtivo.jogadores = torneioAtivo.vencedores;
@@ -959,7 +973,7 @@ function resolverFim() {
       $("fbP").textContent = "Campeão do torneio eliminatório.";
       torneioAtivo = null;
       show("fimBat");
-      idle = setTimeout(home, 25000);
+      if (TEMPO.retornoMenu > 0) idle = setTimeout(home, TEMPO.retornoMenu);
       return;
     }
     montarJogosTorneio();
@@ -977,17 +991,20 @@ function resolverFim() {
   $("fbT").textContent = a === b ? "Empate" : (a > b ? n1 : n2) + " venceu";
   $("fbP").innerHTML = "<b>" + esc(n1) + "</b> " + a + " × " + b + " <b>" + esc(n2) + "</b>";
   show("fimBat");
-  idle = setTimeout(home, 25000);
+  if (TEMPO.retornoMenu > 0) idle = setTimeout(home, TEMPO.retornoMenu);
 }
 setInterval(() => {
   if (!B || !B.on) return;
-  const audio = $("musicaDesafio");
-  const duracao = Number.isFinite(audio.duration) ? Math.max(1, audio.duration - 2) : 180;
-  const restante = Math.max(0, duracao - audio.currentTime);
-  const perigo = Math.min(1, Math.max(0, 1 - restante / duracao));
+  const total = B.tempoTotal || 18;
+  const restante = Math.max(0, total - ((performance.now() - B.tempoInicio) / 1000));
+  const perigo = Math.min(1, Math.max(0, 1 - restante / total));
   [0, 1].forEach((s) => {
     $("lado" + s).style.setProperty("--perigo-bg", (100 * perigo).toFixed(1) + "%");
   });
+  if (restante <= 0.2 || perigo >= LIMITE_PERIGO_ETAPA) {
+    clearTimeout(B.timerEtapa);
+    bFimEtapa(B.token, B);
+  }
 }, 100);
 function iniciarConfrontoAtual() {
   if (torneioAtivo) {
